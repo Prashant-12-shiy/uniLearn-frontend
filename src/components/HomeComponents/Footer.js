@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -30,7 +31,7 @@ const Footer = () => {
             <h2 className="text-lg mb-3 font-semibold">{section.title}</h2>
             <ul className="*:mb-2 text-sm text-[#888]">
               {section.items.map((item, idx) => (
-                <li key={idx}> <a href="#">{item} </a> </li>
+                <li key={idx}> <Link href="#">{item} </Link> </li>
               ))}
             </ul>
           </div>

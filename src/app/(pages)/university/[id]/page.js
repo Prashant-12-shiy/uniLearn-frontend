@@ -66,9 +66,9 @@ const page = () => {
 
             <div className="grid grid-cols-2 gap-8">
               {university?.coursesOffered.map((course, index) => (
-                <Link href={`/course/${course._id}`}>
+                <Link href={`/course/${course._id}`}   key={course._id} >
                 <div
-                  key={index}
+                
                   className="mt-5  border border-opacity-40 flex flex-col justify-between shadow-md shadow-slate-800 hover:-translate-y-1 transition-transform duration-300 p-5 rounded-md border-[#888]"
                 >
                   <div className="flex gap-4">
@@ -87,7 +87,7 @@ const page = () => {
                    
                   </div>
                   <p className="mt-3 text-sm text-[#888]">
-                    Total Semester: {course?.semesters}{" "}
+                    Total Semester: {course?.semesters.length}{" "}
                   </p>
                 </div>
               </Link>

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { ENDPOINT } from "../endPoints";
 import { useMutation, useQuery } from "@tanstack/react-query";
-const BASEURL = "http://localhost:8000";
 
-const { GET_UNIVERSITY, GET_UNIVERSITY_BYID, ADD_UNIVERSITY } = ENDPOINT;
+
+const { BASEURL, GET_UNIVERSITY, GET_UNIVERSITY_BYID, ADD_UNIVERSITY } = ENDPOINT;
 
 const secretKey = "Manga2023@" // Ensure this is set in .env and properly retrieved
 // console.log(secretKey)
