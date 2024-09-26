@@ -44,13 +44,13 @@ const page = () => {
                   width={40}
                   height={40}
                 />
-                <a
+                <Link
                   className="hover:underline"
                   href={university?.website}
                   target="_blank"
                 >
                   {university?.website}
-                </a>
+                </Link>
               </div>
             </div>
             <p className="text-base text-[#888] mt-2">

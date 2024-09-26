@@ -4,6 +4,18 @@ import { useParams } from "next/navigation";
 import { useGetCourse } from "@/services/api/courseApi";
 import Link from "next/link";
 import DynamicBreadcrumb from "@/components/breadcrumb";
+import { Button } from "@/components/ui/Button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/Dialog";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const params = useParams();
@@ -11,15 +23,25 @@ const page = () => {
   const { data: courseData } = useGetCourse(id);
 
   const breadcrumbItems = [
-    { label: 'Home', link: '/' },
-    { label: 'University', link: '/university' },
-    { label: courseData?.university?.name, link: `/university/${courseData?.university?._id}` },
-    { label: courseData?.name } // No link for the last item
+    { label: "Home", link: "/" },
+    { label: "University", link: "/university" },
+    {
+      label: courseData?.university?.name,
+      link: `/university/${courseData?.university?._id}`,
+    },
+    { label: courseData?.name }, // No link for the last item
   ];
+
+  const router = useRouter(); // Initialize the router
+
+  // Function to handle redirects
+  const handleNavigation = (subjectId, path) => {
+    router.push(`/${path}/${subjectId}`);
+  };
 
   return (
     <div className="mx-7 m-auto h-[100vh] py-10 pt-2">
-         <DynamicBreadcrumb items={breadcrumbItems} />
+      <DynamicBreadcrumb items={breadcrumbItems} />
       <h1 className="mt-5 text-4xl font-bold">{courseData?.name}</h1>
       <p className=" text-[#888] mt-2">{courseData?.description}</p>
 
@@ -35,13 +57,54 @@ const page = () => {
             <hr className="mb-4" />
 
             {semester?.subjects?.map((subject) => (
-              <Link
-                key={subject._id}
-                href={`/subject/${subject._id}`}
-                className="block mb-2 hover:text-[#76c6e9] transition-colors duration-200 ease-in-out"
-              >
-                {subject.name}
-              </Link>
+              <Dialog key={subject._id}>
+                <DialogTrigger asChild>
+                  <p className="block mb-2 hover:text-[#76c6e9] transition-colors duration-200 ease-in-out">
+                    {subject.name}
+                  </p>
+                </DialogTrigger>
+
+                <DialogContent className="bg-black bg-opacity-30 backdrop-blur-md flex justify-center items-center">
+                  <div className=" p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <DialogHeader className="text-white text-lg font-semibold mb-4">
+                      Choose
+                    </DialogHeader>
+
+                    <div className="flex flex-col gap-4">
+                      <Button
+                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        onClick={() =>
+                          handleNavigation(subject._id, "syllabus")
+                        }
+                      >
+                        Syllabus
+                      </Button>
+                      <Button
+                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        onClick={() => handleNavigation(subject._id, "notes")}
+                      >
+                        Notes
+                      </Button>
+                      <Button
+                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        onClick={() =>
+                          handleNavigation(subject._id, "past-question")
+                        }
+                      >
+                        Past Questions
+                      </Button>
+                      <Button
+                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        onClick={() =>
+                          handleNavigation(subject._id, "projects")
+                        }
+                      >
+                        Projects
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         ))}

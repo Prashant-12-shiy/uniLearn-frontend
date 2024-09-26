@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import useFlowbite from "@/hooks/flowbite";
+import Link from "next/link";
 
 const DropdownHover = ({ name, content }) => {
   // useEffect(() => {
@@ -48,12 +49,12 @@ const DropdownHover = ({ name, content }) => {
         >
           {content.map((content, index) => (
             <li key={index}>
-              <a
+              <Link
                 href="#"
                 className="block px-4 py-2 text-sm hover:bg-gray-700 dark:hover:bg-gray-400 dark:hover:text-black"
               >
                 {content}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
