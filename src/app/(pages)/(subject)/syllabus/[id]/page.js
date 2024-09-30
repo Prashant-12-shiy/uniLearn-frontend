@@ -2,33 +2,33 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useGetSubjects } from "@/services/api/subjectApi";
-import DynamicBreadcrumb from "@/components/breadcrumb";
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb.js";
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const id = params.id;
 
   const { data: subjectData } = useGetSubjects(id);
   // console.log(subjectData);
 
-  const breadcrumbItems = [
-    { label: "Home", link: "/" },
-    { label: "University", link: "/university" },
-    {
-      label: subjectData?.university?.name,
-      link: `/university/${subjectData?.university?._id}`,
-    },
-    { label: subjectData?.course?.name,
-      link: `/course/${subjectData?.course?._id}`,
-     }, // No link for the last item
-     {
-      label: subjectData?.subject?.name,
-     }
-  ];
+  // const breadcrumbItems = [
+  //   { label: "Home", link: "/" },
+  //   { label: "University", link: "/university" },
+  //   {
+  //     label: subjectData?.university?.name,
+  //     link: `/university/${subjectData?.university?._id}`,
+  //   },
+  //   { label: subjectData?.course?.name,
+  //     link: `/course/${subjectData?.course?._id}`,
+  //    }, // No link for the last item
+  //    {
+  //     label: subjectData?.subject?.name,
+  //    }
+  // ];
 
   return (
     <div className="mx-7">
-      <DynamicBreadcrumb items={breadcrumbItems}/>
+      {/* <DynamicBreadcrumb items={breadcrumbItems}/> */}
       <h1 className="text-3xl mb-7">{subjectData?.name}</h1>
 
       <div>
@@ -50,4 +50,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

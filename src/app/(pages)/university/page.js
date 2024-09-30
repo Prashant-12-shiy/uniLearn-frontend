@@ -3,12 +3,13 @@ import React from "react";
 import { Button } from "@/components/ui/Button";
 import { useGetUniversity } from "@/services/api/universityApi";
 import Link from "next/link";
-import DynamicBreadcrumb from "@/components/breadcrumb";
+import Image from "next/image";
+// import DynamicBreadcrumb from "@/components/breadcrumb";
 
 
 const UniversityCard = ({ university }) => (
   <div className="bg-gradient-to-b from-[#0a0a0a] to-[#191919] shadow-md text-white shadow-[#494949] p-4 rounded-md">
-    <img
+    <Image
       src={university.logo}
       alt={university.name}
       className="h-16 w-16 object-contain mx-auto"
@@ -28,13 +29,13 @@ const UniversityCard = ({ university }) => (
   </div>
 );
 
-const universityPage = () => {
+const UniversityPage = () => {
   const { data: universityData } = useGetUniversity();
   // console.log(universityData);
-  const breadcrumbItems = [
-    { label: 'Home', link: '/' },
-    { label: 'University', link: '/university' }
-  ];
+  // const breadcrumbItems = [
+  //   { label: 'Home', link: '/' },
+  //   { label: 'University', link: '/university' }
+  // ];
 
   return (
     <div className="university-bg  mb-32 ">
@@ -54,4 +55,4 @@ const universityPage = () => {
   );
 };
 
-export default universityPage;
+export default UniversityPage;

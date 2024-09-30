@@ -1,5 +1,11 @@
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from './ui/BreadCrumb'; // Adjust import as needed
-import Link from 'next/link'; // Adjust based on your routing setup
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from "./ui/Breadcrumb.js"; // Adjust import as needed
+import Link from "next/link"; // Adjust based on your routing setup
 
 const DynamicBreadcrumb = ({ items }) => {
   return (

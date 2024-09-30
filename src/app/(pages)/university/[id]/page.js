@@ -4,17 +4,10 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import DynamicBreadcrumb from "@/components/breadcrumb.js";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../../../../components/ui/BreadCrumb.js"
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb.js";
 
-const page = () => {
+
+const Page = () => {
   const params = useParams();
   const id = params.id;
 
@@ -100,4 +93,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

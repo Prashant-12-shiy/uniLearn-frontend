@@ -9,5 +9,10 @@ export const ENDPOINT = {
 
     GET_COURSEBYID: "/api/getCourse/",
 
-    GET_SUBJECT: "/api/getSubject/"
+    GET_SUBJECT: "/api/getSubject/",
+
+    ADD_NOTES: "/api/addNote",
+
+    ADD_PAST_QUESTION: "/api/addPastQuestion",
+    GET_PAST_QUESTION: "/api/getPastQuestions",
 }

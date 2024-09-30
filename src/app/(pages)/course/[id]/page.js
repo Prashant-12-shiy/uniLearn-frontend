@@ -3,7 +3,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useGetCourse } from "@/services/api/courseApi";
 import Link from "next/link";
-import DynamicBreadcrumb from "@/components/breadcrumb";
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb.js";
 import { Button } from "@/components/ui/Button";
 import {
   Dialog,
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/Dialog";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const id = params.id;
   const { data: courseData } = useGetCourse(id);
@@ -59,7 +59,7 @@ const page = () => {
             {semester?.subjects?.map((subject) => (
               <Dialog key={subject._id}>
                 <DialogTrigger asChild>
-                  <p className="block mb-2 hover:text-[#76c6e9] transition-colors duration-200 ease-in-out">
+                  <p className="block mb-2 hover:text-[#76c6e9] transition-colors duration-200 ease-in-out hover:cursor-pointer">
                     {subject.name}
                   </p>
                 </DialogTrigger>
@@ -113,4 +113,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
