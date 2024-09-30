@@ -1,6 +1,6 @@
 export const ENDPOINT = {
 
-    BASEURL: "http://localhost:8000",
+    BASEURL: "https://unilearn-api.onrender.com",
 
     GET_UNIVERSITY: '/api/getUniversity',
     GET_UNIVERSITY_BYID: "/api/getUniversity/",
