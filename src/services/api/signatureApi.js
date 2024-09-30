@@ -8,7 +8,7 @@ const {BASE_URL} = ENDPOINT;
 export const fetchSignature = async (uploadPreset) => {
   const timestamp = Math.floor(Date.now() / 1000); // Cloudinary expects a timestamp in seconds
   try {
-    const response = await axios.post(BASE_URL + 'api/generateSignature', {
+    const response = await axios.post(BASE_URL + '/api/generateSignature', {
       timestamp,
       upload_preset: uploadPreset, // Send the upload preset
     });
