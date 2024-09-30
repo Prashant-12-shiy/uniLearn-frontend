@@ -73,8 +73,20 @@ export default function ImageUploadForm() {
 
     try {
       setLoading(true);
+      
+      const { signature, api_key, timestamp } = await fetchSignature(
+        uploadPreset
+      );
 
-      // Directly upload to Cloudinary using the unsigned upload preset
+      // Step 2: Create FormData for the Cloudinary upload
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", uploadPreset);
+      formData.append("signature", signature); // Signed signature from the backend
+      formData.append("timestamp", timestamp); // Add timestamp for signature
+      formData.append("api_key", api_key); // Add API key to the request
+
+      // Step 3: Upload the file to Cloudinary using the signed request
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
         formData
@@ -83,6 +95,7 @@ export default function ImageUploadForm() {
       const { secure_url } = res.data;
       setImageUrl(secure_url);
       reset(); // Reset the form
+
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
