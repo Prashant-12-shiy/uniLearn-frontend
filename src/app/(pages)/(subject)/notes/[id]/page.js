@@ -28,7 +28,7 @@ const Page = () => {
               src={note.contentUrl}
               width="800px"
               height="500px"
-              className="pdf-viewer m-auto"
+              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px  ]"
               style={{ border: "none" }}
             ></iframe>
             // <PdfViewer pdfUrl={note.contentUrl} />
