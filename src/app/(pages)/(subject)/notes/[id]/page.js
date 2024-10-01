@@ -25,7 +25,7 @@ const Page = () => {
 
             {note?.contentUrl ? (
               <iframe
-              src={note.contentUrl}
+              src={`https://docs.google.com/viewer?url=${note.contentUrl}&embedded=true`}
               width="800px"
               height="500px"
               className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px  ]"
