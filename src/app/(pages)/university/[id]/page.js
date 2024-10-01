@@ -81,7 +81,7 @@ const Page = () => {
                    
                   </div>
                   <p className="mt-3 text-sm text-[#888]">
-                    Total Semester: {course?.semesters.length}{" "}
+                    Total Duration: {course?.duration} {"years"}
                   </p>
                 </div>
               </Link>

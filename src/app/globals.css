@@ -119,3 +119,40 @@ body {
   background-position: center;
 }
 
+/* components/PdfViewer.module.css */
+/* .pdfViewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+} */
+
+/* .pdfContainer {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  width: 80%;
+  max-width: 800px; 
+  max-height: 600px; 
+} */
+
+/* .pdfDocument {
+  width: 80%; 
+} */
+
+/* .pageNumber {
+  margin-top: 10px; 
+  font-size: 16px;
+  color: #555;
+} */
+
+/* .pdfPage {
+  width: 100%;
+} */
+/* 
+.loading {
+  position: absolute;
+  font-size: 24px;
+  color: #000;
+} */

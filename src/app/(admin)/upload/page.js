@@ -18,10 +18,14 @@ import { Button } from "@/components/ui/Button";
 import { useAddUniversity } from "@/services/api/universityApi";
 import { useAddNotes } from "@/services/api/notesApi";
 import { fetchSignature } from "@/services/api/signatureApi";
+import { useAddCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
+import FormDialog from "@/components/UploadComponents/Form";
 
 export default function ImageUploadForm() {
   const { register, handleSubmit, reset } = useForm();
+  const {register: courseRegister, handleSubmit: courseSubmit} = useForm();
+  const {register: subjectRegister, handleSubmit: subjectSubmit} = useForm();
   const { register: notesRegister, handleSubmit: notesSubmit } = useForm();
   const {register: pastQuestionRegister, handleSubmit: pastQuestionSubmit} = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,6 +35,7 @@ export default function ImageUploadForm() {
   const { mutate: addUniversityMutation } = useAddUniversity();
   const { mutate: addNoteMutation } = useAddNotes();
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
+  const {mutate: addCourseMutation} = useAddCourse();
 
   const isAdmin = cookies.get("admin");
   const router = useRouter();
@@ -41,11 +46,11 @@ export default function ImageUploadForm() {
     }
   }, [isAdmin, router]);
 
-  const handlePhotoInput = (file) => {
-    setSelectedFile(file[0]);
-  };
+  // const handlePhotoInput = (file) => {
+  //   setSelectedFile(file[0]);
+  // };
   
-  const handleNoteInput = (file) => {
+  const handleFileInput = (file) => {
     const file2 = file[0];
     if (file2 && file2.type === "application/pdf") {
       setSelectedFile(file2);
@@ -54,14 +59,14 @@ export default function ImageUploadForm() {
     }
   };
 
-  const handlePastQuestionInput = (file) => {
-    const file2 = file[0];
-    if (file2 && file2.type === "application/pdf") {
-      setSelectedFile(file2);
-    } else {
-      console.error("Please select a valid PDF file.");
-    }
-  }
+  // const handlePastQuestionInput = (file) => {
+  //   const file2 = file[0];
+  //   if (file2 && file2.type === "application/pdf") {
+  //     setSelectedFile(file2);
+  //   } else {
+  //     console.error("Please select a valid PDF file.");
+  //   }
+  // }
 
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
@@ -196,164 +201,105 @@ export default function ImageUploadForm() {
     }
   };
 
+  const handleSubjectSubmit = () => {
+
+  }
+
+  const submitCourse = (data) => {  
+    data.duration = Number(data.duration);
+    
+    try {
+      addCourseMutation(data, {
+        onSuccess: () => {
+          console.log("University added successfully!");
+        },
+        onError: (error) => {
+          console.error("Error adding University:", error);
+        }
+      })
+    } catch (error) {
+      console.log("Error uploading course:", error);
+    }
+  }
+
   return (
     <div className="my-10 w-[70%] m-auto">
       <h1 className="text-center font-semibold text-3xl my-9">Admin Page</h1>
       <h1>University Upload Form</h1>
 
       <div className="flex flex-col gap-7 w-36">
-        <Dialog>
-          <DialogTrigger className="border p-2 rounded-lg">
-            Add University
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add University</DialogTitle>
-            </DialogHeader>
+      <FormDialog
+        triggerLabel="Add University"
+        title="Add University"
+        onSubmit={handleSubmit(onSubmit)}
+        register={register}
+        fields={[
+          { name: 'name', label: 'Name', type: 'text', required: true },
+          { name: 'location', label: 'Location', type: 'text', required: true },
+          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true },
+          { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*' },
+          { name: 'website', label: 'Website', type: 'text', required: true }
+        ]}
+        handleFileInput={handleFileInput}
+      />
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex justify-between">
-                <div>
-                  <label htmlFor="name">Name</label>
-                  <Input type="text" {...register("name")} required={true} />
-                </div>
+<FormDialog
+        triggerLabel="Add Course"
+        title="Add Course"
+        onSubmit={courseSubmit(submitCourse)}
+        register={courseRegister}
+        fields={[
+          { name: 'name', label: 'Name', type: 'text', required: true },
+          { name: 'shortName', label: 'Short Name', type: 'text', required: true },
+          { name: 'university', label: 'University', type: 'text', required: true },
+          { name: 'duration', label: 'Duration', type: 'number', require: true },
+          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
+        ]}
+        handleFileInput={handleFileInput}
+      />
 
-                <div>
-                  <label htmlFor="location">Location</label>
-                  <Input
-                    type="text"
-                    {...register("location")}
-                    required={true}
-                  />
-                </div>
-              </div>
+{/* <FormDialog
+        triggerLabel="Add Subject"
+        title="Add Subject"
+        onSubmit={subjectSubmit(handleSubjectSubmit)}
+        register={subjectRegister}
+        fields={[
+          { name: 'name', label: 'Name', type: 'text', required: true },
+          { name: 'year', label: 'Year', type: 'number', required: true },
+          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
+          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
+        ]}
+        handleFileInput={handleFileInput}
+      /> */}
 
-              <label htmlFor="description">Description</label>
-              <Textarea
-                type="text"
-                {...register("description")}
-                required={true}
-              />
 
-              <div>
-                <div>
-                  <Input
-                    type="file"
-                    className="text-center"
-                    onChange={(e) => handlePhotoInput(e.target.files)}
-                  />
-                </div>
+        <FormDialog
+        triggerLabel="Add Notes"
+        title="Add Notes"
+        onSubmit={notesSubmit(submitNotes)}
+        register={notesRegister}
+        fields={[
+          { name: 'title', label: 'Title', type: 'text', required: true },
+          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
+          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
+        ]}
+        handleFileInput={handleFileInput}
+      />
 
-                <div>
-                  <label htmlFor="website">Website</label>
-                  <Input type="text" {...register("website")} required={true} />
-                </div>
-              </div>
-              <Button className="bg-[#4b99e6] hover:bg-[#4a8bed]" type="submit">
-                Create
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
 
-        <Dialog>
-          <DialogTrigger className="border p-2 rounded-lg">
-            Add Notes
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Notes</DialogTitle>
-            </DialogHeader>
-
-            <form onSubmit={notesSubmit(submitNotes)}>
-              <div className="flex justify-between gap-5 items-center">
-                <div>
-                  <label htmlFor="title">Title</label>
-                  <Input
-                    type="text"
-                    {...notesRegister("title")}
-                    required={true}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="file">File</label>
-                  <Input
-                    type="file"
-                    accept="application/pdf"
-                    onChange={(e) => handleNoteInput(e.target.files)}
-                    required={true}
-                  />
-                </div>
-              </div>
-
-              <label htmlFor="description">Description</label>
-              <Textarea
-                type="text"
-                {...notesRegister("description")}
-                required={true}
-              />
-
-              <Button className="bg-[#4b99e6] hover:bg-[#4a8bed]" type="submit">
-                Create
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog>
-          <DialogTrigger className="border p-2 rounded-lg">
-            Add Past Questions
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>  Add Past Questions</DialogTitle>
-            </DialogHeader>
-
-            <form onSubmit={pastQuestionSubmit(submitPastQuestion)}>
-              <div className="flex justify-between gap-5 items-center">
-              <div>
-                  <label htmlFor="name">Name</label>
-                  <Input
-                    type="text"
-                    {...pastQuestionRegister("name")}
-                    required={true}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="year">Year</label>
-                  <Input
-                    type="number"
-                    {...pastQuestionRegister("year")}
-                    required={true}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="file">File</label>
-                  <Input
-                    type="file"
-                    accept="application/pdf"
-                    onChange={(e) => handlePastQuestionInput(e.target.files)}
-                    required={true}
-                  />
-                </div>
-              </div>
-
-              <label htmlFor="description">Description</label>
-              <Textarea
-                type="text"
-                {...pastQuestionRegister("description")}
-                required={true}
-              />
-
-              <Button className="bg-[#4b99e6] hover:bg-[#4a8bed]" type="submit">
-                Create
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
+<FormDialog
+        triggerLabel="Add Past Questions"
+        title="Add Past Questions"
+        onSubmit={pastQuestionSubmit(submitPastQuestion)}
+        register={pastQuestionRegister}
+        fields={[
+          { name: 'name', label: 'Name', type: 'text', required: true },
+          { name: 'year', label: 'Year', type: 'number', required: true },
+          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
+          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
+        ]}
+        handleFileInput={handleFileInput}
+      />
 
       </div>
     </div>

@@ -74,22 +74,22 @@ export default function Home() {
       <div className="flex justify-evenly gap-10 px-32 h-[90vh] max-md:px-10 m-auto items-center bg-gradient-to-b from-[#0a0a0a] to-[#191919] max-md:flex-col">
         <div className="grid grid-cols-2 gap-10 *:mb-11 *:pl-8  ">
           <div>
-            <motion.spna className="text-3xl font-semibold"> 50k</motion.spna> <br /> Daily
+            <motion.span className="text-3xl font-semibold"> 50k</motion.span> <br /> Daily
             Visitors
           </div>
 
           <div>
-            <spna className="text-3xl font-semibold"> 1000</spna> <br />{" "}
+            <span className="text-3xl font-semibold"> 1000</span> <br />{" "}
             Suscription
           </div>
 
           <div>
-            <spna className="text-3xl font-semibold"> 100</spna> <br /> Our
+            <span className="text-3xl font-semibold"> 100</span> <br /> Our
             Courses
           </div>
 
           <div>
-            <spna className="text-3xl font-semibold"> 4.5 </spna> <br /> Reviews
+            <span className="text-3xl font-semibold"> 4.5 </span> <br /> Reviews
           </div>
         </div>
 

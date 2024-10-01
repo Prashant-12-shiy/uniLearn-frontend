@@ -10,7 +10,7 @@ export const ENDPOINT = {
     GET_UNIVERSITY_BYID: "/api/getUniversity/",
     ADD_UNIVERSITY: "/api/newUniversity",
 
-
+    ADD_COURSE: '/api/addCourse',
     GET_COURSEBYID: "/api/getCourse/",
 
     GET_SUBJECT: "/api/getSubject/",

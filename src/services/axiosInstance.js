@@ -1,23 +1,11 @@
-// import axios from "axios";
-// import Cookies from "js-cookie";
-// //export const baseURL = "https://hrm-backend.herokuapp.com";
-// export const baseURL = "http://localhost:8080";
+// apiClient.js (Create a separate file for your Axios instance)
+import axios from "axios";
 
-// const axiosInstance = axios.create({
-//   baseURL: baseURL,
-// });
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASEURL, // Set your base URL
+  headers: {
+    "x-secret-key": process.env.NEXT_PUBLIC_SECRET_KEY, // Add your default headers here
+  },
+});
 
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     const token = Cookies.get("token");
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// export default axiosInstance;
+export default axiosInstance;

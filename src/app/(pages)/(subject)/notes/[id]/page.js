@@ -3,7 +3,9 @@ import React from 'react'
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useGetSubjects } from '@/services/api/subjectApi';
-// const PdfViewer = dynamic(() => import('../../../../../components/PdfViewer.js'), { ssr: false });
+import PdfViewer from '@/components/PdfViewer';
+import Link from 'next/link';
+
 
 
 const Page = () => {
@@ -16,7 +18,7 @@ const Page = () => {
   console.log(notes);
   
   return (
-    <div className='mx-7'>
+    <div className='mx-7 h-full'>
       <h2>{subjectData?.subject?.name}</h2>
 
       {notes?.map((note)=> (
@@ -26,11 +28,15 @@ const Page = () => {
             {note?.contentUrl ? (
               <iframe
               src={`https://docs.google.com/viewer?url=${note.contentUrl}&embedded=true`}
+              // src={note.contentUrl}
               width="800px"
               height="500px"
               className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px  ]"
               style={{ border: "none" }}
-            ></iframe>
+            >
+               <Link href={note.contentUrl} target="_blank" rel="noopener noreferrer">View PDF</Link>
+            </iframe>
+            
             // <PdfViewer pdfUrl={note.contentUrl} />
           ) : (
             <p>No PDF available</p>
