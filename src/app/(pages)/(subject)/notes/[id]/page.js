@@ -1,7 +1,10 @@
 "use client"
 import React from 'react'
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useGetSubjects } from '@/services/api/subjectApi';
+// const PdfViewer = dynamic(() => import('../../../../../components/PdfViewer.js'), { ssr: false });
+
 
 const Page = () => {
   const params = useParams();
@@ -28,6 +31,7 @@ const Page = () => {
               className="pdf-viewer m-auto"
               style={{ border: "none" }}
             ></iframe>
+            // <PdfViewer pdfUrl={note.contentUrl} />
           ) : (
             <p>No PDF available</p>
           )}
@@ -36,5 +40,6 @@ const Page = () => {
     </div>
   )
 }
+
 
 export default Page

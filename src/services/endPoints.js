@@ -1,6 +1,10 @@
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
 export const ENDPOINT = {
 
-    BASEURL: "https://unilearn-api.onrender.com",
+    BASEURL: process.env.NEXT_PUBLIC_BASEURL,
 
     GET_UNIVERSITY: '/api/getUniversity',
     GET_UNIVERSITY_BYID: "/api/getUniversity/",

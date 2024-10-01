@@ -8,12 +8,12 @@ const ContactForm = () => {
     const {register, handleSubmit} = useForm();
 
   return (
-    <div className='flex justify-evenly items-center h-[90vh]'>
+    <div className='flex justify-evenly items-center h-full mb-10 max-md:flex-col'>
         <div >
-            <Image src="/assets/contact.png" alt="Contact Image" width={400} height={400}/>
+            <Image src="/assets/contact.png" alt="Contact Image" className='max-sm:w-[300px] max-sm:mb-5' width={400} height={400}/>
         </div>
 
-        <div className='w-[30%]'>
+        <div className='w-[30%] max-md:w-[70%]'>
             <h2 className='text-3xl font-semibold text-center mb-5'>Contact Us</h2>
             <form className='flex flex-col '>
                 <label htmlFor='name'>Name</label>

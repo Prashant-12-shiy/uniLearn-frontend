@@ -23,7 +23,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="flex items-start justify-evenly mt-10">
+      <div className="flex items-start max-sm:grid max-sm:grid-cols-2 max-sm:gap-7 max-sm:ml-9 justify-evenly mt-10">
         <h2 className="text-2xl font-semibold">Logo</h2>
 
         {sections.map((section, index) => (

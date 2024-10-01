@@ -29,16 +29,17 @@ const Page = () => {
           <div className="my-10 border border-opacity-40 p-5 rounded-md border-[#888]">
             
             <div className="flex justify-between ">
-              <h1 className="text-3xl">{university?.name}</h1>
-              <div className="flex gap-10 items-center justify-center">
+              <h1 className="text-3xl max-sm:text-xl">{university?.name}</h1>
+              <div className="flex gap-10 max-sm:gap-2 items-center justify-center">
                 <Image
-                  src="/assets/Tribhuvan_University_logo.svg.png"
+                  src={university?.logo ? university.logo : "/assets/choice.png"}
                   alt={university?.name}
                   width={40}
                   height={40}
+                  className="max-sm:w-6 max-sm:h-6"
                 />
                 <Link
-                  className="hover:underline"
+                  className="hover:underline max-sm:text-sm"
                   href={university?.website}
                   target="_blank"
                 >
@@ -57,12 +58,12 @@ const Page = () => {
           <div>
             <h2 className="text-2xl">Courses</h2>
 
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-8 max-sm:grid-cols-1">
               {university?.coursesOffered.map((course, index) => (
                 <Link href={`/course/${course._id}`}   key={course._id} >
                 <div
                 
-                  className="mt-5  border border-opacity-40 flex flex-col justify-between shadow-md shadow-slate-800 hover:-translate-y-1 transition-transform duration-300 p-5 rounded-md border-[#888]"
+                  className="mt-5  border border-opacity-40 flex flex-col justify-between shadow-md shadow-slate-800 hover:-translate-y-1 transition-transform duration-300 h-[200px] max-md:h-[250px] max-sm:h-[200px] p-5 rounded-md border-[#888]"
                 >
                   <div className="flex gap-4">
                     <div>

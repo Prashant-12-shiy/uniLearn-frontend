@@ -10,44 +10,44 @@ import Footer from "@/components/HomeComponents/Footer";
 
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const element = document.getElementById("scale-div");
-      const rect = element.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const element = document.getElementById("scale-div");
+  //     const rect = element.getBoundingClientRect();
+  //     const windowHeight = window.innerHeight;
 
-      // Check if the div is in the viewport
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
+  //     // Check if the div is in the viewport
+  //     if (rect.top < windowHeight && rect.bottom > 0) {
+  //       setIsVisible(true);
+  //     } else {
+  //       setIsVisible(false);
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    // Clean up the event listener
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   // Clean up the event listener
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
 
 
   return (
-    <div>
+    <div >
       {/* <Header /> */}
 
       <div className="relative">
         <Image
-          className="-z-10 rounded-full ml-[10vw]"
+          className="-z-10 rounded-full ml-[10vw] max-md:w-[80vw] max-sm:opacity-70"
           src="/assets/home_img.jpg"
           alt="home image"
           width={500}
           height={500}
         />
-        <div className="h-full m-auto">
-          <h1 className="absolute top-1/4 right-20 h-40 text-white flex items-center text-4xl py-6 rounded-xl font-bold">
+        <div className="h-full m-auto ">
+          <h1 className="absolute top-1/4 right-20 h-40 max-sm:w-full max-sm:right-0 text-white flex items-center text-4xl py-6 rounded-xl font-bold max-sm:text-center">
             Discover Your Path to Success
           </h1>
         </div>
@@ -55,10 +55,10 @@ export default function Home() {
 
       <motion.div
         id="scale-div"
-        className="grid grid-cols-3 gap-4 mx-20 my-16 mt-20"
+        className="grid grid-cols-3 gap-4 mx-20 my-16 mt-20 max-md:mx-10 max-md:grid-cols-2 max-sm:grid-cols-1"
         // initial={{ scale: 50 }}  
-        animate={{ scale: isVisible ? 1 : 0.2 }}
-        transition={{ duration: 0.7 }}
+        // animate={{ scale: isVisible ? 1 : 0.2 }}
+        // transition={{ duration: 0.7 }}
       >
         {features.map((feature, index) => (
           <div
@@ -71,7 +71,7 @@ export default function Home() {
         ))}
       </motion.div>
 
-      <div className="flex justify-evenly gap-10 px-32 h-[90vh] m-auto items-center bg-gradient-to-b from-[#0a0a0a] to-[#191919]">
+      <div className="flex justify-evenly gap-10 px-32 h-[90vh] max-md:px-10 m-auto items-center bg-gradient-to-b from-[#0a0a0a] to-[#191919] max-md:flex-col">
         <div className="grid grid-cols-2 gap-10 *:mb-11 *:pl-8  ">
           <div>
             <motion.spna className="text-3xl font-semibold"> 50k</motion.spna> <br /> Daily
@@ -94,10 +94,10 @@ export default function Home() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold w-[30vw]">
+          <h2 className="text-2xl font-semibold w-[30vw] max-md:w-[70vw] max-sm:m-auto max-sm:text-center">
             The highest quality online courses and Resources Website
           </h2>
-          <button className="bg-white font-semibold mt-7 text-black hover:-translate-y-1   transition-all duration-200 rounded-lg px-6 py-2">
+          <button className="bg-white font-semibold mt-7 text-black hover:-translate-y-1  max-sm:ml-8 transition-all duration-200 rounded-lg px-6 py-2">
             Learn More
           </button>
         </div>
@@ -105,7 +105,7 @@ export default function Home() {
 
       <hr className="opacity-45 " />
 
-      <div className="flex flex-col justify-center items-center  h-[90vh] bg-gradient-to-b from-[#0a0a0a] via-[#1e1e1e] to-[#0a0a0a] relative ">
+      <div className="flex flex-col justify-center items-center  h-[90vh] bg-gradient-to-b from-[#0a0a0a] via-[#1e1e1e] to-[#0a0a0a] relative overflow-hidden max-sm:h-full max-sm:my-10">
       <FloatingBalls
         color="bg-slate-500"
         size="w-40 h-40"
@@ -124,11 +124,11 @@ export default function Home() {
           Our Mission
         </h2>
 
-        <div className="flex justify-between items-center gap-5 w-[70%] ">
+        <div className="flex justify-between items-center gap-5 w-[70%] max-md:w-[90%] max-sm:flex-col">
           {mission.map((missionItem, index) => (
             <div
               key={index}
-              className="hover:-translate-y-2 border transition-all duration-300 border-[#888] border-opacity-30 p-4 rounded-sm  bg-gradient-to-b from-[#0a0a0a] to-[#171717] "
+              className="hover:-translate-y-2 border transition-all duration-300 border-[#888] border-opacity-30 p-4 rounded-sm  bg-gradient-to-b from-[#0a0a0a] to-[#171717] max-md:h-full"
             >
               <Image
                 src={missionItem.image}

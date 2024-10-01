@@ -1,5 +1,7 @@
-import React from "react";
+"use client"
+import React, {useState} from "react";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import DropdownHover from "../ui/DropdownHover";
 import { DropdownMenu } from "../ui/DropDown";
 import {
@@ -13,6 +15,13 @@ import {
 } from "../ui/NavMenu.js";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false); // State to toggle mobile menu
+
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   const Techcontent = ["BCA", "BIT", "BIM", "MCA", "MIT"];
   const businessContent = ["BBS", "BBA", "BIM", "MBA", "MBS", "MIM"];
   return (
@@ -21,12 +30,16 @@ const Header = () => {
         LOGO
       </Link>
 
-      <div className="flex gap-7 items-center justify-center text-sm">
-        <Link href="/">Home</Link>
-        {/* 
-            <DropdownHover name={"Information Tech"} content={Techcontent} />
+      <button
+          onClick={toggleMenu}
+          className="block sm:hidden text-white focus:outline-none"
+        >
+            <Menu />
+        </button>
 
-            <DropdownHover name={"Business"} content={businessContent} /> */}
+      <div className="flex gap-7 items-center justify-center text-sm max-sm:hidden">
+        <Link href="/">Home</Link>
+
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -44,30 +57,40 @@ const Header = () => {
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* <DropdownMenu className="w-40 ">
-              <DropdownMenuTrigger asChild>
-                <p className='cursor-pointer'>Business</p>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className='w-40  rounded-md px-2 py-2 *:mb-2 bg-[#252525] cursor-pointer'>
-                <DropdownMenuItem>
-                  BBA
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  BBS
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  MBA
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  MBS
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-
         <Link href="#">College</Link>
 
         <Link href="/university">University</Link>
       </div>
+
+         {/* Mobile Menu */}
+         <div
+        className={`sm:hidden flex flex-col gap-3 px-5 py-3 absolute z-20 right-0 h-full bg-[#0a0a0a] transition-all duration-500 ease-in-out ${
+          isOpen ? "block" : "hidden"
+        }`}
+        
+      >
+        <X className="text-end" onClick={() => toggleMenu()}/>
+
+        <div onClick={() => toggleMenu()} className="flex flex-col gap-5">
+
+
+        <Link href="/">Home</Link>
+
+        {/* Information Technology Dropdown */}
+        <div className="flex flex-col" >
+          <div className="cursor-pointer">Information Technology</div>
+          <div className="pl-3">
+            <div className="cursor-pointer">BCA</div>
+            <div className="cursor-pointer">MCA</div>
+            <div className="cursor-pointer">BIT</div>
+            <div className="cursor-pointer">BIM</div>
+          </div>
+        </div>
+
+        <Link href="#">College</Link>
+        <Link href="/university">University</Link>
+      </div>
+        </div>
     </div>
   );
 };
