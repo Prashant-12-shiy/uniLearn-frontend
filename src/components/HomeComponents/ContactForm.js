@@ -25,7 +25,7 @@ const ContactForm = () => {
                 <label className='dark:text-white text-black' htmlFor='message'>Message</label>
                 <textarea  className='rounded-lg bg-transparent text-white  focus:bg-[#e8e6e6] resize-none focus:ring-black focus:text-black mb-5' rows={5}  {...register('message')} required />
 
-                <Button className="w-32 bg-gray-800 hover:bg-gray-900">Submit</Button>
+                <Button className="w-32 dark:bg-white dark:hover:bg-gray-200 bg-gray-800 hover:bg-gray-900">Submit</Button>
             </form>
 
         </div>
