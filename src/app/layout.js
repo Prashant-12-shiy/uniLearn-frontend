@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     // <AllContextProvider>
       <html lang="en">
-        <body className={`antialiased`}>
+        <body className={`antialiased bg-gray-100 dark:bg-[#0a0a0a]`}>
           <Header />
           <QueryProvider>{children}</QueryProvider>
           <Footer/>

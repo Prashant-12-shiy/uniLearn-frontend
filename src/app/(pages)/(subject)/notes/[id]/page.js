@@ -18,8 +18,8 @@ const Page = () => {
   console.log(notes);
   
   return (
-    <div className='mx-7 h-full'>
-      <h2>{subjectData?.subject?.name}</h2>
+    <div className='mx-7 h-full dark:text-white text-black'>
+      <h2 >{subjectData?.subject?.name}</h2>
 
       {notes?.map((note)=> (
          <div key={note._id}> 

@@ -1,15 +1,13 @@
 import axios from "axios";
 import { ENDPOINT } from "../endPoints";
 import { useMutation, useQuery } from "@tanstack/react-query";
-const { BASEURL, ADD_NOTES } = ENDPOINT;
+import axiosInstance from "../axiosInstance";
+const { ADD_NOTES } = ENDPOINT;
 
 const secretKey = "Manga2023@"
 
 const addNotes = async (data) => {
-  const response = await axios.post(BASEURL + ADD_NOTES, data, {
-    headers: { "x-secret-key": secretKey },
-    'Content-Type': 'multipart/form-data',
-  });
+  const response = await axiosInstance.post(ADD_NOTES, data);
 
   return response.data.data;
 };

@@ -29,7 +29,7 @@ const Page = () => {
           <div className="my-10 border border-opacity-40 p-5 rounded-md border-[#888]">
             
             <div className="flex justify-between ">
-              <h1 className="text-3xl max-sm:text-xl">{university?.name}</h1>
+              <h1 className="text-3xl max-sm:text-xl dark:text-white text-black">{university?.name}</h1>
               <div className="flex gap-10 max-sm:gap-2 items-center justify-center">
                 <Image
                   src={university?.logo ? university.logo : "/assets/choice.png"}
@@ -39,7 +39,7 @@ const Page = () => {
                   className="max-sm:w-6 max-sm:h-6"
                 />
                 <Link
-                  className="hover:underline max-sm:text-sm"
+                  className="hover:underline max-sm:text-sm dark:text-white text-black"
                   href={university?.website}
                   target="_blank"
                 >
@@ -47,16 +47,16 @@ const Page = () => {
                 </Link>
               </div>
             </div>
-            <p className="text-base text-[#888] mt-2">
+            <p className="text-base dark:text-[#888] text-gray-600 mt-2">
               {university?.description}
             </p>
-            <p className="mt-3">
+            <p className="mt-3 dark:text-white text-black">
               Course Offered: {university?.coursesOffered.length}
             </p>
           </div>
 
           <div>
-            <h2 className="text-2xl">Courses</h2>
+            <h2 className="text-2xl dark:text-white text-black">Courses</h2>
 
             <div className="grid grid-cols-2 gap-8 max-sm:grid-cols-1">
               {university?.coursesOffered.map((course, index) => (
@@ -67,20 +67,20 @@ const Page = () => {
                 >
                   <div className="flex gap-4">
                     <div>
-                      <h3 className="text-2xl font-semibold ">{course?.shortName}</h3>
+                      <h3 className="text-2xl font-semibold dark:text-white text-black">{course?.shortName}</h3>
                     </div>
 
                     <div>
                     
-                      <p>{course?.name}</p>
+                      <p className="dark:text-white text-black">{course?.name}</p>
             
-                    <p className="text-sm text-[#888] mt-2">
+                    <p className="text-sm dark:text-[#888] text-gray-600 mt-2">
                       {course?.description}
                     </p>   
                     </div>
                    
                   </div>
-                  <p className="mt-3 text-sm text-[#888]">
+                  <p className="mt-3 text-sm dark:text-[#888] text-gray-600">
                     Total Duration: {course?.duration} {"years"}
                   </p>
                 </div>

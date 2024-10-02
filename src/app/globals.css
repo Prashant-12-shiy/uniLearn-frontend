@@ -98,7 +98,7 @@ body {
   }
 }
 
-.university-bg {
+.dark .dark-university-bg {
   margin: 0; /* Ensure it covers the entire viewport */
   background-color: #0a0a0a; /* Solid black background */
   background-image: radial-gradient(closest-side, transparent, #0a0a0a),
@@ -118,6 +118,28 @@ body {
   background-size: 100% 100%, 75px 75px, 75px 75px; /* Set grid size */
   background-position: center;
 }
+
+.university-bg {
+  margin: 0; /* Ensure it covers the entire viewport */
+	background-color: rgb(243 244 246); /* Solid black background */
+  background-image: radial-gradient(closest-side, transparent, rgb(243 244 246)),
+    repeating-linear-gradient(
+      black 0px,
+      black 0.5px,
+      transparent 0.5px,
+      transparent 75px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      black 0px,
+      black 0.5px,
+      transparent 0.5px,
+      transparent 75px
+    );
+  background-size: 100% 100%, 75px 75px, 75px 75px; /* Set grid size */
+  background-position: center;
+}
+
 
 /* components/PdfViewer.module.css */
 /* .pdfViewer {

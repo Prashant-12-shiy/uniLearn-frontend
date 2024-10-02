@@ -29,13 +29,13 @@ const Page = () => {
   return (
     <div className="mx-7">
       {/* <DynamicBreadcrumb items={breadcrumbItems}/> */}
-      <h1 className="text-3xl mb-7">{subjectData?.name}</h1>
+      <h1 className="text-3xl mb-7 dark:text-white text-black">{subjectData?.name}</h1>
 
       <div>
         {subjectData?.subject?.syllabus.map((syllabus) => {
           return (
-            <div key={syllabus._id} className="mb-5">
-              <h2 className="text-2xl font-semibold mb-2">{syllabus.title}</h2>
+            <div key={syllabus._id} className="mb-5 dark:text-white text-black">
+              <h2 className="text-2xl font-semibold mb-2 ">{syllabus.title}</h2>
               <hr />
               <div className="flex justify-between mb-2 font-semibold">
                 {" "}

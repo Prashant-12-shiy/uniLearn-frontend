@@ -4,11 +4,10 @@ import { useQuery , useMutation} from "@tanstack/react-query";
 import axiosInstance from "../axiosInstance";
 const { BASEURL, ADD_COURSE, GET_COURSEBYID } = ENDPOINT;
 
-const secretKey = "Manga2023@" 
 
 const addCourse = async (data) => {
   try {
-    const response = await axiosInstance.post(BASEURL + ADD_COURSE, data);
+    const response = await axiosInstance.post( ADD_COURSE, data);
     return response.data.data;
   } catch (error) {
     console.error("Error Adding Course" + error);
@@ -25,7 +24,7 @@ export const useAddCourse = () => {
 
 const getCourse = async (id) => {
   try {
-    const response = await axios.get(BASEURL + GET_COURSEBYID + id);
+    const response = await axiosInstance.get(GET_COURSEBYID + id);
 
     return response.data.data;
   } catch (error) {

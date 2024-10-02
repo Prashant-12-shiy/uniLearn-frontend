@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const FloatingBalls = ({ color, size, top, left, delay }) => {
   return (
     <motion.div
-      className={`absolute rounded-full ${color} ${size} h-10 opacity-20 blur-xl`}
+      className={`absolute rounded-full dark:${color} ${size} bg-slate-600 h-10 opacity-20 blur-xl`}
       style={{ top , left}}
       animate={{
         y: ["0%", "100%", "0%"],
