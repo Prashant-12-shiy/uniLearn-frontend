@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "@/components/HomeComponents/Header";
+import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
@@ -24,16 +24,19 @@ export default function Home() {
       button: "Explore University",
       image: "/assets/university.png",
       border: "#FF4C30",
+      link: "/university"
     },
     {
       button: "Explore Courses",
       image: "/assets/online-learning.png",
       border: "#93E26B",
+       link: "/courses"
     },
     {
       button: "Explore Colleges",
       image: "/assets/college.png",
       border: "#856BE2",
+       link: "/college"
     },
   ];
 
@@ -67,9 +70,11 @@ export default function Home() {
               >
                 <Image src={card.image} alt="Image" width={150} height={150} />
                 <motion.div variants={buttonVariants} whileHover="hover">
+                  <Link href={card.link}>
                   <Button className="text-2xl font-semibold mt-10">
                     {card.button}
                   </Button>
+                  </Link>
                 </motion.div>
               </motion.div>
             );
@@ -99,7 +104,7 @@ export default function Home() {
             {features.map((feature, index) => (
               <CarouselItem
                 key={index}
-                className="px-5 mr-8 max-sm:basis-full md:basis-1/2 lg:basis-1/3 h-[300px] py-2 dark:hover:bg-[#111111] hover:bg-slate-100 dark:bg-[#0a0a0a] bg-white border dark:border-white border-black border-opacity-40 rounded-xl shadow-md cursor-pointer text-black dark:text-white max-md:w-[100px]"
+                className="px-5 mr-8 max-sm:basis-full md:basis-1/2 lg:basis-1/3  h-[300px] py-2 dark:hover:bg-[#111111] hover:bg-slate-100 dark:bg-[#0a0a0a] bg-white border dark:border-white border-black border-opacity-40 rounded-xl shadow-md cursor-pointer text-black dark:text-white max-md:w-[100px] text-center"
               >
                 <h2 className="text-xl font-semibold">{feature.title}</h2>
                 <p className="text-sm mt-5 text-[#888]">

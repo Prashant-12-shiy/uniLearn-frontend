@@ -42,13 +42,17 @@ const Page = () => {
   return (
     <div className="mx-7 m-auto h-[100vh] py-10 pt-2">
       <DynamicBreadcrumb items={breadcrumbItems} />
-      <h1 className="mt-5 text-4xl font-bold max-sm:text-2xl dark:text-white text-black">{courseData?.name}</h1>
-      <p className=" dark:text-[#888] text-gray-600 mt-2 max-sm:text-sm">{courseData?.description}</p>
+      <h1 className="mt-5 text-4xl font-bold max-sm:text-2xl dark:text-white text-black">
+        {courseData?.name}
+      </h1>
+      <p className=" dark:text-[#888] text-gray-600 mt-2 max-sm:text-sm">
+        {courseData?.description}
+      </p>
 
       <div className="grid grid-cols-2 gap-10 mt-10 max-sm:gap-4 max-sm:grid-cols-1">
         {courseData?.semesters?.map((semester) => (
           <div
-            key={semester._id} 
+            key={semester._id}
             className="border border-gray-300 border-opacity-70 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-6 rounded-lg"
           >
             <p className="text-xl font-semibold mb-3 max-sm:text-lg dark:text-white text-black">
@@ -72,7 +76,7 @@ const Page = () => {
 
                     <div className="flex flex-col gap-4">
                       <Button
-                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        className="bg-transparent border border-slate-400 text-white hover:bg-[#75a759] transition duration-200"
                         onClick={() =>
                           handleNavigation(subject._id, "syllabus")
                         }
@@ -80,13 +84,13 @@ const Page = () => {
                         Syllabus
                       </Button>
                       <Button
-                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        className="bg-transparent border border-slate-400 text-white hover:bg-[#58a2ca] transition duration-200"
                         onClick={() => handleNavigation(subject._id, "notes")}
                       >
                         Notes
                       </Button>
                       <Button
-                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        className="bg-transparent border border-slate-400 text-white hover:bg-[#9259a7] transition duration-200"
                         onClick={() =>
                           handleNavigation(subject._id, "past-question")
                         }
@@ -94,7 +98,7 @@ const Page = () => {
                         Past Questions
                       </Button>
                       <Button
-                        className="bg-transparent border border-slate-400 text-white hover:bg-slate-400 transition duration-200"
+                        className="bg-transparent border border-slate-400 text-white hover:bg-[#a75959] transition duration-200"
                         onClick={() =>
                           handleNavigation(subject._id, "projects")
                         }

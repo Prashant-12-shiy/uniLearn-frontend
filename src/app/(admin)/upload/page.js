@@ -24,10 +24,11 @@ import FormDialog from "@/components/UploadComponents/Form";
 
 export default function ImageUploadForm() {
   const { register, handleSubmit, reset } = useForm();
-  const {register: courseRegister, handleSubmit: courseSubmit} = useForm();
-  const {register: subjectRegister, handleSubmit: subjectSubmit} = useForm();
+  const { register: courseRegister, handleSubmit: courseSubmit } = useForm();
+  const { register: subjectRegister, handleSubmit: subjectSubmit } = useForm();
   const { register: notesRegister, handleSubmit: notesSubmit } = useForm();
-  const {register: pastQuestionRegister, handleSubmit: pastQuestionSubmit} = useForm();
+  const { register: pastQuestionRegister, handleSubmit: pastQuestionSubmit } =
+    useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [noteUrl, setNoteUrl] = useState(null);
@@ -35,7 +36,7 @@ export default function ImageUploadForm() {
   const { mutate: addUniversityMutation } = useAddUniversity();
   const { mutate: addNoteMutation } = useAddNotes();
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
-  const {mutate: addCourseMutation} = useAddCourse();
+  const { mutate: addCourseMutation } = useAddCourse();
 
   const isAdmin = cookies.get("admin");
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function ImageUploadForm() {
   // const handlePhotoInput = (file) => {
   //   setSelectedFile(file[0]);
   // };
-  
+
   const handleFileInput = (file) => {
     const file2 = file[0];
     if (file2 && file2.type === "application/pdf") {
@@ -78,7 +79,7 @@ export default function ImageUploadForm() {
 
     try {
       setLoading(true);
-      
+
       const { signature, api_key, timestamp } = await fetchSignature(
         uploadPreset
       );
@@ -100,7 +101,6 @@ export default function ImageUploadForm() {
       const { secure_url } = res.data;
       setImageUrl(secure_url);
       reset(); // Reset the form
-
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -157,7 +157,6 @@ export default function ImageUploadForm() {
     }
   };
 
-  
   const submitPastQuestion = async (data) => {
     if (!selectedFile) {
       console.error("No file selected.");
@@ -201,13 +200,11 @@ export default function ImageUploadForm() {
     }
   };
 
-  const handleSubjectSubmit = () => {
+  const handleSubjectSubmit = () => {};
 
-  }
-
-  const submitCourse = (data) => {  
+  const submitCourse = (data) => {
     data.duration = Number(data.duration);
-    
+
     try {
       addCourseMutation(data, {
         onSuccess: () => {
@@ -215,12 +212,12 @@ export default function ImageUploadForm() {
         },
         onError: (error) => {
           console.error("Error adding University:", error);
-        }
-      })
+        },
+      });
     } catch (error) {
       console.log("Error uploading course:", error);
     }
-  }
+  };
 
   return (
     <div className="my-10 w-[70%] m-auto">
@@ -228,37 +225,79 @@ export default function ImageUploadForm() {
       <h1>University Upload Form</h1>
 
       <div className="flex flex-col gap-7 w-36">
-      <FormDialog
-        triggerLabel="Add University"
-        title="Add University"
-        onSubmit={handleSubmit(onSubmit)}
-        register={register}
-        fields={[
-          { name: 'name', label: 'Name', type: 'text', required: true },
-          { name: 'location', label: 'Location', type: 'text', required: true },
-          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true },
-          { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*' },
-          { name: 'website', label: 'Website', type: 'text', required: true }
-        ]}
-        handleFileInput={handleFileInput}
-      />
+        <FormDialog
+          triggerLabel="Add University"
+          title="Add University"
+          onSubmit={handleSubmit(onSubmit)}
+          register={register}
+          fields={[
+            { name: "name", label: "Name", type: "text", required: true },
+            {
+              name: "location",
+              label: "Location",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "description",
+              label: "Description",
+              type: "textarea",
+              required: true,
+              fullWidth: true,
+            },
+            { name: "photo", label: "Photo", type: "file", accept: "image/*" },
+            { name: "website", label: "Website", type: "text", required: true },
+          ]}
+          handleFileInput={handleFileInput}
+        />
 
-<FormDialog
-        triggerLabel="Add Course"
-        title="Add Course"
-        onSubmit={courseSubmit(submitCourse)}
-        register={courseRegister}
-        fields={[
-          { name: 'name', label: 'Name', type: 'text', required: true },
-          { name: 'shortName', label: 'Short Name', type: 'text', required: true },
-          { name: 'university', label: 'University', type: 'text', required: true },
-          { name: 'duration', label: 'Duration', type: 'number', require: true },
-          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
-        ]}
-        handleFileInput={handleFileInput}
-      />
+        <FormDialog
+          triggerLabel="Add Course"
+          title="Add Course"
+          onSubmit={courseSubmit(submitCourse)}
+          register={courseRegister}
+          fields={[
+            { name: "name", label: "Name", type: "text", required: true },
+            {
+              name: "shortName",
+              label: "Short Name",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "university",
+              label: "University",
+              type: "select",
+              options: [
+                {
+                  value: "Tribhuvan University",
+                  label: "Tribhuvan University",
+                },
+                {
+                  value: "Pokhara University",
+                  label: "Pokhara University",
+                },
+              ],
+              required: true,
+            },
+            {
+              name: "duration",
+              label: "Duration",
+              type: "number",
+              require: true,
+            },
+            {
+              name: "description",
+              label: "Description",
+              type: "textarea",
+              required: true,
+              fullWidth: true,
+            },
+          ]}
+          handleFileInput={handleFileInput}
+        />
 
-{/* <FormDialog
+        {/* <FormDialog
         triggerLabel="Add Subject"
         title="Add Subject"
         onSubmit={subjectSubmit(handleSubjectSubmit)}
@@ -272,35 +311,56 @@ export default function ImageUploadForm() {
         handleFileInput={handleFileInput}
       /> */}
 
+        <FormDialog
+          triggerLabel="Add Notes"
+          title="Add Notes"
+          onSubmit={notesSubmit(submitNotes)}
+          register={notesRegister}
+          fields={[
+            { name: "title", label: "Title", type: "text", required: true },
+            {
+              name: "file",
+              label: "File",
+              type: "file",
+              accept: "application/pdf",
+              required: true,
+            },
+            {
+              name: "description",
+              label: "Description",
+              type: "textarea",
+              required: true,
+              fullWidth: true,
+            },
+          ]}
+          handleFileInput={handleFileInput}
+        />
 
         <FormDialog
-        triggerLabel="Add Notes"
-        title="Add Notes"
-        onSubmit={notesSubmit(submitNotes)}
-        register={notesRegister}
-        fields={[
-          { name: 'title', label: 'Title', type: 'text', required: true },
-          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
-          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
-        ]}
-        handleFileInput={handleFileInput}
-      />
-
-
-<FormDialog
-        triggerLabel="Add Past Questions"
-        title="Add Past Questions"
-        onSubmit={pastQuestionSubmit(submitPastQuestion)}
-        register={pastQuestionRegister}
-        fields={[
-          { name: 'name', label: 'Name', type: 'text', required: true },
-          { name: 'year', label: 'Year', type: 'number', required: true },
-          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
-          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
-        ]}
-        handleFileInput={handleFileInput}
-      />
-
+          triggerLabel="Add Past Questions"
+          title="Add Past Questions"
+          onSubmit={pastQuestionSubmit(submitPastQuestion)}
+          register={pastQuestionRegister}
+          fields={[
+            { name: "name", label: "Name", type: "text", required: true },
+            { name: "year", label: "Year", type: "number", required: true },
+            {
+              name: "file",
+              label: "File",
+              type: "file",
+              accept: "application/pdf",
+              required: true,
+            },
+            {
+              name: "description",
+              label: "Description",
+              type: "textarea",
+              required: true,
+              fullWidth: true,
+            },
+          ]}
+          handleFileInput={handleFileInput}
+        />
       </div>
     </div>
   );

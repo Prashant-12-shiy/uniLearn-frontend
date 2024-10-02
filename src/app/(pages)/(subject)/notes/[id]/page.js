@@ -3,14 +3,13 @@ import React from 'react'
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useGetSubjects } from '@/services/api/subjectApi';
-import PdfViewer from '@/components/PdfViewer';
 import Link from 'next/link';
-
 
 
 const Page = () => {
   const params = useParams();
-  const id = params.id;
+  const { id } = params;
+
 
   const { data: subjectData } = useGetSubjects(id);
   const notes = subjectData?.subject?.notes;

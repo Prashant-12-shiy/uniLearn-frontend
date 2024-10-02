@@ -46,7 +46,7 @@ const Footer = () => {
 
         <p className="text-gray-400 my-3">We’re committed to providing students with valuable resources like notes, past papers, and college recommendations—all for free. If our platform has helped you, please consider supporting us with a small donation. Your generosity will help keep the website running and free for everyone.</p>
 
-       <Link href="#"><Button className="bg-lime-600">Donate</Button> </Link>  
+       <Link href="/donate"><Button className="bg-lime-600">Donate</Button> </Link>  
       </div>
 
       <p className="ml-16 text-[#888] text-sm my-8"> &copy; 2025 UniLearn</p>
