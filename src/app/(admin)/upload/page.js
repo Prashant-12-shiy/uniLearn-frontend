@@ -20,6 +20,7 @@ import { useAddNotes } from "@/services/api/notesApi";
 import { fetchSignature } from "@/services/api/signatureApi";
 import { useAddCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
+import { useAddSubject } from "@/services/api/subjectApi";
 import FormDialog from "@/components/UploadComponents/Form";
 
 export default function ImageUploadForm() {
@@ -37,6 +38,7 @@ export default function ImageUploadForm() {
   const { mutate: addNoteMutation } = useAddNotes();
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
   const { mutate: addCourseMutation } = useAddCourse();
+  const {mutate: addSubjectMutation } = useAddSubject();
 
   const isAdmin = cookies.get("admin");
   const router = useRouter();
@@ -200,7 +202,48 @@ export default function ImageUploadForm() {
     }
   };
 
-  const handleSubjectSubmit = () => {};
+  const handleSubjectSubmit = async(data) => {
+    if (!selectedFile) {
+      console.error("No file selected.");
+      return;
+    }
+
+    setLoading(true); // Start loading
+
+    try {
+      const { signature, api_key, timestamp } = await fetchSignature(
+        uploadPreset
+      );
+
+      // Step 2: Create FormData for the Cloudinary upload
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", uploadPreset);
+      formData.append("signature", signature); // Signed signature from the backend
+      formData.append("timestamp", timestamp); // Add timestamp for signature
+      formData.append("api_key", api_key); // Add API key to the request
+
+      // Step 3: Upload the file to Cloudinary using the signed request
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`, // Update to the correct resource type
+        formData
+      );
+
+      const { secure_url } = res.data;
+      console.log("File uploaded successfully:", secure_url);
+
+      // Proceed with other logic, e.g., saving the note's URL in your database
+      const updatedData = {
+        ...data,
+        syllabus: secure_url,
+      };
+      addSubjectMutation(updatedData); /// Send the form data// Assuming this is your mutation for adding the note
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const submitCourse = (data) => {
     data.duration = Number(data.duration);
@@ -297,19 +340,18 @@ export default function ImageUploadForm() {
           handleFileInput={handleFileInput}
         />
 
-        {/* <FormDialog
+        <FormDialog
         triggerLabel="Add Subject"
         title="Add Subject"
         onSubmit={subjectSubmit(handleSubjectSubmit)}
         register={subjectRegister}
         fields={[
           { name: 'name', label: 'Name', type: 'text', required: true },
-          { name: 'year', label: 'Year', type: 'number', required: true },
-          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true },
-          { name: 'description', label: 'Description', type: 'textarea', required: true, fullWidth: true }
+          // { name: 'year', label: 'Year', type: 'number', required: true },
+          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true }
         ]}
         handleFileInput={handleFileInput}
-      /> */}
+      />
 
         <FormDialog
           triggerLabel="Add Notes"

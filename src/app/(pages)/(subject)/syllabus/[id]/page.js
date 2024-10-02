@@ -2,14 +2,14 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useGetSubjects } from "@/services/api/subjectApi";
-import DynamicBreadcrumb from "@/components/DynamicBreadcrumb.js";
+import Link from "next/link";
 
 const Page = () => {
   const params = useParams();
   const id = params.id;
 
   const { data: subjectData } = useGetSubjects(id);
-  // console.log(subjectData);
+  console.log(subjectData);
 
   // const breadcrumbItems = [
   //   { label: "Home", link: "/" },
@@ -29,22 +29,28 @@ const Page = () => {
   return (
     <div className="mx-7">
       {/* <DynamicBreadcrumb items={breadcrumbItems}/> */}
-      <h1 className="text-3xl mb-7 dark:text-white text-black">{subjectData?.name}</h1>
+      <h1 className="text-3xl mb-7 dark:text-white text-black">{subjectData?.subject?.name}</h1>
 
       <div>
-        {subjectData?.subject?.syllabus.map((syllabus) => {
-          return (
-            <div key={syllabus._id} className="mb-5 dark:text-white text-black">
-              <h2 className="text-2xl font-semibold mb-2 ">{syllabus.title}</h2>
-              <hr />
-              <div className="flex justify-between mb-2 font-semibold">
-                {" "}
-                <p>{syllabus.subtitle} </p> <p className="">{syllabus.hrs}</p>{" "}
-              </div>
-              <p className="text-sm text-[#888]">{syllabus.content}</p>
-            </div>
-          );
-        })}
+      {subjectData?.subject?.syllabus ? (
+            <iframe
+              src={`https://docs.google.com/viewer?url=${subjectData?.subject?.syllabus}&embedded=true`}
+              width="800px"
+              height="500px"
+              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px]"
+              style={{ border: "none" }}
+            >
+              <Link
+                href={subjectData?.subject?.syllabus}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </Link>
+            </iframe>
+          ) : (
+            <p>Loading PDF...</p>
+          )}
       </div>
     </div>
   );

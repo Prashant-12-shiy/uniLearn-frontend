@@ -56,7 +56,11 @@ const Page = () => {
             className="border border-gray-300 border-opacity-70 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-6 rounded-lg"
           >
             <p className="text-xl font-semibold mb-3 max-sm:text-lg dark:text-white text-black">
-              Semester: {semester.semesterNumber}
+              {semester.semesterNumber < 6 ? (
+                <>Year: {semester.semesterNumber} </>
+              ) : (
+                <>Semester: {semester.semesterNumber} </>
+              )}
             </p>
             <hr className="mb-4" />
 
