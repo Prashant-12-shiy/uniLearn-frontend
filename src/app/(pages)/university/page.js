@@ -55,7 +55,7 @@ const UniversityPage = () => {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-10 mx-20 max-md:mx-10 max-sm:grid-cols-1">
-            {universityData.length > 0 ? (
+            {Array.isArray(universityData) && universityData.length > 0 ? (
               universityData.map((university, index) => (
                 <UniversityCard key={university._id} university={university} />
               ))
