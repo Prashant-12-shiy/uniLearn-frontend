@@ -43,7 +43,7 @@ const FormDialog = ({
                   className="bg-black w-full rounded-sm border-opacity-60"
                   required={field.required}
                 >
-                  {field?.options.map((option, index) => (
+                  {field?.options?.map((option, index) => (
                     <option key={index} value={option.value}>
                       {option.label}
                     </option>

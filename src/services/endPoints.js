@@ -12,9 +12,11 @@ export const ENDPOINT = {
 
     ADD_COURSE: '/api/addCourse',
     GET_COURSEBYID: "/api/getCourse/",
+    GET_ALLCOURSE: "/api/getAllCourse",
 
     ADD_SUBJECT: "/api/addSubject",
     GET_SUBJECT: "/api/getSubject/",
+
 
     ADD_NOTES: "/api/addNote",
 

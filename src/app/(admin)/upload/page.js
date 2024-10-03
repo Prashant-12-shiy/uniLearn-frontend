@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/Button";
 import { useAddUniversity } from "@/services/api/universityApi";
 import { useAddNotes } from "@/services/api/notesApi";
 import { fetchSignature } from "@/services/api/signatureApi";
-import { useAddCourse } from "@/services/api/courseApi";
+import { useAddCourse, useGetAllCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
 import { useAddSubject } from "@/services/api/subjectApi";
 import FormDialog from "@/components/UploadComponents/Form";
@@ -41,7 +41,10 @@ export default function ImageUploadForm() {
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
   const { mutate: addCourseMutation } = useAddCourse();
   const {mutate: addSubjectMutation } = useAddSubject();
+  const {data: allCourseData } = useGetAllCourse();
 
+  console.log(allCourseData);
+  
   const isAdmin = cookies.get("admin");
   const router = useRouter();
 
@@ -210,10 +213,10 @@ export default function ImageUploadForm() {
   };
 
   const handleSubjectSubmit = async(data) => {
-    // if (!selectedFile) {
-    //   console.error("No file selected.");
-    //   return;
-    // }
+    if (!selectedFile) {
+      console.error("No file selected.");
+      return;
+    }
     data.semesterNumber = Number(data.semesterNumber);
 
     setLoading(true); // Start loading
@@ -262,6 +265,14 @@ export default function ImageUploadForm() {
       console.log("Error uploading course:", error);
     }
   };
+
+  const courseOptions = allCourseData
+  ? allCourseData.map(course => ({
+      label: course.name, // Assuming `name` is the field you want to display
+      value: course.name,  // Assuming `_id` is the unique identifier
+    }))
+  : [];
+
 
   return (
     <div className="my-10 w-[70%] m-auto">
@@ -349,7 +360,7 @@ export default function ImageUploadForm() {
         fields={[
           { name: 'name', label: 'Name', type: 'text', required: true },
           { name: 'code', label: 'Subject Code', type: 'text', required: true },
-          { name: 'course', label: 'Course', type: 'text', required: true },
+          { name: 'course', label: 'Course', type: 'select', options: courseOptions, required: true },
           { name: 'semesterNumber', label: 'semesterNumber / Year ', type: 'number', required: true },
           { name: 'file', label: 'File', type: 'file', accept: 'application/pdf' }
         ]}
