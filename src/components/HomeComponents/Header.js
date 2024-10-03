@@ -58,7 +58,7 @@ const Header = () => {
     <div className="flex justify-around mb-3 items-center">
       <Link
         href="/"
-        className="text-3xl dark:text-white text-black cursor-pointer "
+        className="text-3xl dark:text-white text-black cursor-pointer flex items-center justify-center gap-0 "
       >
         <Image
           src="/assets/logo.png"
@@ -76,6 +76,9 @@ const Header = () => {
           height={100}
           className="text-white hidden dark:block max-md:w-20 max-md:h-20"
         />
+        <p className="text-xs -translate-x-5 pt-2 logo max-md:text-[8px]">
+          Learn <br/> Space
+        </p>
       </Link>
 
       <div className="sm:hidden flex items-center">

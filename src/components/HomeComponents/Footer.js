@@ -42,32 +42,24 @@ const Footer = () => {
   return (
     <div>
       {/* <hr className="my-4 dark:bg-white bg-black border-black dark:border-white" /> */}
-      <div className="flex items-start max-sm:grid max-sm:grid-cols-2  max-sm:gap-7 max-sm:ml-9 justify-evenly mt-10">
+      <div className="flex items-start max-sm:grid max-sm:grid-cols-2  max-sm:gap-7 max-sm:pl-9 justify-evenly bg-slate-800 pb-4">
         <>
           <Image
-            src="/assets/logo.png"
+            src="/assets/sky_logo.png"
             alt="learnSpace"
-            width={70}
-            height={70}
-            className="text-white dark:hidden"
+            width={200}
+            height={200}
+            className="text-white "
           />
 
-          {/* Dark theme logo */}
-          <Image
-            src="/assets/dark_logo.png"
-            alt="learnSpace"
-            width={70}
-            height={70}
-            className="text-white hidden dark:block"
-          />
         </>
 
         {sections.map((section, index) => (
-          <div key={index} className="">
-            <h2 className="text-lg max-md:text-base mb-3 font-semibold  dark:text-white text-black">
+          <div key={index} className="mt-10">
+            <h2 className="text-lg max-md:text-base mb-3 font-semibold  text-white ">
               {section.title}
             </h2>
-            <ul className="*:mb-2 text-sm text-[#888]">
+            <ul className="*:mb-2 text-sm text-[#c9c7c7]">
               {section.items.map((item, idx) => (
                 <li key={idx}>
                   {" "}
@@ -81,10 +73,13 @@ const Footer = () => {
         ))}
       </div>
 
-      <hr className="my-4 dark:bg-white bg-black border-black dark:border-white border-opacity-40" />
+      <hr className=" dark:bg-white bg-black border-black dark:border-white border-opacity-40" />
+
+        <div className="bg-slate-800 pt-4 pb-8">
+
 
       <div className="w-[60vw] m-auto max-md:w-[90vw]">
-        <h4 className="text-2xl dark:text-white text-black ">
+        <h4 className="text-2xl text-white  ">
           {" "}
           Support Our Free Educational Resources!
         </h4>
@@ -102,8 +97,9 @@ const Footer = () => {
         </Link>
       </div>
 
-      <p className="ml-16 text-[#888] text-sm my-8"> &copy; 2025 learnSpace</p>
+      <p className="ml-16 text-[#888] text-sm mt-8"> &copy; 2025 learnSpace</p>
     </div>
+        </div>
   );
 };
 

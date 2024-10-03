@@ -351,7 +351,7 @@ export default function ImageUploadForm() {
         register={subjectRegister}
         fields={[
           { name: 'name', label: 'Name', type: 'text', required: true },
-          // { name: 'year', label: 'Year', type: 'number', required: true },
+          { name: 'code', label: 'Subject Code', type: 'text', required: true },
           { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true }
         ]}
         handleFileInput={handleFileInput}

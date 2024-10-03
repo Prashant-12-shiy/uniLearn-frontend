@@ -17,26 +17,25 @@ import {
 } from "@/components/ui/Carousel.js";
 import Counter from "@/components/HomeComponents/Couter";
 
-
 export default function Home() {
   const homeCard = [
     {
       button: "Explore University",
       image: "/assets/university.png",
-      border: "#FF4C30",
-      link: "/university"
+      bg: "#EB8272",
+      link: "/university",
     },
     {
       button: "Explore Courses",
       image: "/assets/online-learning.png",
-      border: "#93E26B",
-       link: "/courses"
+      bg: "#C2F9A6",
+      link: "/courses",
     },
     {
       button: "Explore Colleges",
       image: "/assets/college.png",
-      border: "#856BE2",
-       link: "/college"
+      bg: "#A590F2",
+      link: "/college",
     },
   ];
 
@@ -54,26 +53,37 @@ export default function Home() {
     <div>
       {/* <Header /> */}
 
-      <div className="flex flex-col justify-center  h-full mt-20 m-auto ">
+      <div className="flex flex-col justify-center  h-full mt-14 max-md:mt-4 m-auto ">
+        <h1 className="text-center  text-4xl dark:text-white text-black font-semibold max-md:text-2xl mb-8">
+          Empower Learning, Inspire Futures!
+        </h1>
         <div className="flex justify-around mx-10 max-md:flex-col gap-10 items-center h-full">
           {homeCard.map((card, index) => {
             return (
               <motion.div
                 key={index}
-                className="w-full h-[300px] rounded-lg flex flex-col items-center justify-center border-4"
-                style={{ borderColor: card.border }}
+                className="w-full h-[300px] max-md:h-[280px] rounded-lg flex flex-col items-center justify-center border shadow-md"
+                style={{ borderColor: card}}
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
                 whileHover="hover"
                 transition={{ duration: 0.5, delay: index * 0.2 }} // Delayed animations
               >
-                <Image src={card.image} alt="Image" width={150} height={150} />
+                <div className={`rounded-full p-8 bg-${card.bg}`} style={{backgroundColor: card.bg}}>
+                  <Image
+                    src={card.image}
+                    alt="Image"
+                    width={110}
+                    height={110}
+                    className="max-md:w-20 "
+                  />
+                </div>
                 <motion.div variants={buttonVariants} whileHover="hover">
                   <Link href={card.link}>
-                  <Button className="text-2xl font-semibold mt-10">
-                    {card.button}
-                  </Button>
+                    <Button className="text-2xl font-semibold mt-10 max-md:text-lg">
+                      {card.button}
+                    </Button>
                   </Link>
                 </motion.div>
               </motion.div>
@@ -91,8 +101,13 @@ export default function Home() {
         </p>
       </div>
 
-      <div id="scale-div" className=" mx-20 my-16 mt-24 max-md:mx-10 h-full flex flex-col justify-center">
-        <h2 className="text-5xl dark:text-white text-black text-center mb-6 font-semibold">Feature</h2>
+      <div
+        id="scale-div"
+        className=" mx-20 my-16 mt-24 max-md:mx-10 h-full flex flex-col justify-center"
+      >
+        <h2 className="text-5xl dark:text-white text-black text-center mb-6 font-semibold">
+          Feature
+        </h2>
         <Carousel
           opts={{
             align: "start",
@@ -100,7 +115,7 @@ export default function Home() {
           }}
           className="w-[80vw] m-auto"
         >
-          <CarouselContent >
+          <CarouselContent>
             {features.map((feature, index) => (
               <CarouselItem
                 key={index}
@@ -118,26 +133,26 @@ export default function Home() {
         </Carousel>
       </div>
 
-      <div className="flex justify-evenly gap-10 px-32 h-[90vh] max-md:px-10 m-auto items-center dark:bg-gradient-to-b from-[#0a0a0a] to-[#191919] max-md:flex-col dark:text-white text-black" >
+      <div className="flex justify-evenly gap-10 px-32 h-[90vh] max-md:px-10 m-auto items-center dark:bg-gradient-to-b from-[#0a0a0a] to-[#191919] max-md:flex-col dark:text-white text-black">
         <div className="grid grid-cols-2 gap-10 *:mb-11 *:pl-8  ">
           <div>
-          <Counter endValue={500} suffix="" duration={2} />
+            <Counter endValue={500} suffix="" duration={2} />
             <br /> Daily Visitors
           </div>
 
           <div>
-          <Counter endValue={1000} suffix="" duration={2} /> <br />
+            <Counter endValue={1000} suffix="" duration={2} /> <br />
             Suscription
           </div>
 
           <div>
-          <Counter endValue={100} suffix="" duration={2} /> <br />
+            <Counter endValue={100} suffix="" duration={2} /> <br />
             Courses
           </div>
 
           <div>
-          <Counter endValue={4.5} suffix="" duration={2} /> <br />
-          Rating
+            <Counter endValue={4.5} suffix="" duration={2} /> <br />
+            Rating
           </div>
         </div>
 

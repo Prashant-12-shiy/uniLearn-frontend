@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <body
           className={`antialiased bg-gray-100 dark:bg-[#0a0a0a]`}
         >
-          <Header />
+          <Header  />
           <main className="min-h-screen"> {children} </main>
           <Footer />
         </body>
