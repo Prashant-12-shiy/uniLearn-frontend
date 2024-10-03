@@ -98,9 +98,9 @@ const Header = () => {
 
                 <NavigationMenuContent className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[200px] dark:bg-[#0a0a0a] dark:text-white text-black  ">
                   {catagory?.courses.map((course, index) => (
-                    <Link href={`/course/${course._id}`}>
+                    <Link href={`/course/${course._id}`}     key={index}>
                       <div
-                        key={index}
+                    
                         className="cursor-pointer hover:text-purple-700 "
                       >
                         {course.shortName}
@@ -171,9 +171,9 @@ const Header = () => {
                 >
                   {catagory?.courses?.map((course, index) => {
                     return (
-                      <Link href={`/course/${course._id}`}>
+                      <Link href={`/course/${course._id}`}  key={index}>
                         <div
-                          key={index}
+                         
                           className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors"
                         >
                           {course.shortName}
