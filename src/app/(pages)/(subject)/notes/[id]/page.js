@@ -12,7 +12,7 @@ const Page = () => {
   const { data: subjectData } = useGetSubjects(id);
   const notes = subjectData?.subject?.notes;
 
-  console.log(notes);
+  // console.log(notes);
 
   return (
     <div className="mx-7 h-full dark:text-white text-black">
@@ -26,8 +26,8 @@ const Page = () => {
             <iframe
               src={`https://docs.google.com/viewer?url=${note.contentUrl}&embedded=true`}
               width="800px"
-              height="500px"
-              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px]"
+              height="700px"
+              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[500px]"
               style={{ border: "none" }}
             >
               <Link

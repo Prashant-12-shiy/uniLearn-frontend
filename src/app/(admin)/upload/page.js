@@ -144,7 +144,7 @@ export default function ImageUploadForm() {
       );
 
       const { secure_url } = res.data;
-      console.log("File uploaded successfully:", secure_url);
+      // console.log("File uploaded successfully:", secure_url);
 
       // Proceed with other logic, e.g., saving the note's URL in your database
       const updatedData = {
@@ -187,7 +187,7 @@ export default function ImageUploadForm() {
       );
 
       const { secure_url } = res.data;
-      console.log("File uploaded successfully:", secure_url);
+      // console.log("File uploaded successfully:", secure_url);
 
       // Proceed with other logic, e.g., saving the note's URL in your database
       const updatedData = {
@@ -230,7 +230,7 @@ export default function ImageUploadForm() {
       );
 
       const { secure_url } = res.data;
-      console.log("File uploaded successfully:", secure_url);
+      // console.log("File uploaded successfully:", secure_url);
 
       // Proceed with other logic, e.g., saving the note's URL in your database
       const updatedData = {

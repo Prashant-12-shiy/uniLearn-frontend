@@ -9,7 +9,7 @@ const Page = () => {
 
   const { data: subjectData } = useGetSubjects(id);
   const pastQuestion = subjectData?.subject?.pastQuestions;
-  console.log(pastQuestion);
+  // console.log(pastQuestion);
   
   return (
     <div>

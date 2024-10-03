@@ -9,7 +9,7 @@ const Page = () => {
   const id = params.id;
 
   const { data: subjectData } = useGetSubjects(id);
-  console.log(subjectData);
+  // console.log(subjectData);
 
   // const breadcrumbItems = [
   //   { label: "Home", link: "/" },
@@ -36,8 +36,8 @@ const Page = () => {
             <iframe
               src={`https://docs.google.com/viewer?url=${subjectData?.subject?.syllabus}&embedded=true`}
               width="800px"
-              height="500px"
-              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[300px]"
+              height="900px"
+              className="pdf-viewer m-auto max-md:w-[400px] max-sm:w-[300px] max-md:h-[430px]"
               style={{ border: "none" }}
             >
               <Link

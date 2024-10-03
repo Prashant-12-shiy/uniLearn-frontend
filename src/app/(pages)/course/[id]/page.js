@@ -66,10 +66,14 @@ const Page = () => {
 
             {semester?.subjects?.map((subject) => (
               <Dialog key={subject._id}>
-                <DialogTrigger asChild>
-                  <p className="block max-sm:text-sm mb-2 hover:text-[#76c6e9] transition-colors duration-200 ease-in-out hover:cursor-pointer dark:text-white text-black">
+                <DialogTrigger asChild >
+                  <div className="flex gap-5 pl-2 items-center mb-2">
+                  <p>{subject?.code}</p>
+                  <p className="block max-sm:text-sm  hover:text-[#76c6e9] transition-colors duration-200 ease-in-out hover:cursor-pointer dark:text-white text-black">
                     {subject.name}
                   </p>
+                  </div>
+                  
                 </DialogTrigger>
 
                 <DialogContent className="dark:bg-black bg-opacity-30 backdrop-blur-md flex justify-center items-center max-sm:rounded-md  max-sm:w-[80vw] ">
