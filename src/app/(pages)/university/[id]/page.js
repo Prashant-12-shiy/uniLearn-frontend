@@ -1,6 +1,7 @@
 "use client";
 import { useGetUniversityById } from "@/services/api/universityApi";
 import { useParams, useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
@@ -22,7 +23,9 @@ const Page = () => {
   return (
     <div className="h-full mx-7 mb-32">
       {isLoading ? (
-        <p>Loading....</p>
+        <div className="w-full m-auto flex justify-center h-screen items-center">
+        <LoaderCircle className="animate-spin w-32 h-32 dark:text-white text-black max-md:w-20 max-md:h-20" />
+      </div>
       ) : (
         <>
            <DynamicBreadcrumb items={breadcrumbItems} />

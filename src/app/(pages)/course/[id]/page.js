@@ -5,6 +5,7 @@ import { useGetCourse } from "@/services/api/courseApi";
 import Link from "next/link";
 import DynamicBreadcrumb from "@/components/DynamicBreadcrumb.js";
 import { Button } from "@/components/ui/Button";
+import { LoaderCircle } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -20,7 +21,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const params = useParams();
   const id = params.id;
-  const { data: courseData } = useGetCourse(id);
+  const { data: courseData, isLoading } = useGetCourse(id);
 
   const breadcrumbItems = [
     { label: "Home", link: "/" },
@@ -49,7 +50,12 @@ const Page = () => {
         {courseData?.description}
       </p>
 
-      <div className="grid grid-cols-2 gap-10 mt-10 max-sm:gap-4 max-sm:grid-cols-1">
+      {isLoading ? (
+            <div className="w-full m-auto flex justify-center h-screen items-center">
+            <LoaderCircle className="animate-spin w-32 h-32 dark:text-white text-black max-md:w-20 max-md:h-20" />
+          </div>
+      ) :  (
+        <div className="grid grid-cols-2 gap-10 mt-10 max-sm:gap-4 max-sm:grid-cols-1">
         {courseData?.semesters?.map((semester) => (
           <div
             key={semester._id}
@@ -67,7 +73,7 @@ const Page = () => {
             {semester?.subjects?.map((subject) => (
               <Dialog key={subject._id}>
                 <DialogTrigger asChild >
-                  <div className="flex gap-5 pl-2 items-center mb-2">
+                  <div className="flex gap-5 pl-2 items-center mb-2 dark:text-white text-black">
                   <p>{subject?.code}</p>
                   <p className="block max-sm:text-sm  hover:text-[#76c6e9] transition-colors duration-200 ease-in-out hover:cursor-pointer dark:text-white text-black">
                     {subject.name}
@@ -121,6 +127,8 @@ const Page = () => {
           </div>
         ))}
       </div>
+      )}
+     
     </div>
   );
 };

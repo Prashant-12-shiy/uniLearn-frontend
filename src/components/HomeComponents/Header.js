@@ -23,11 +23,16 @@ import {
   navigationMenuTriggerStyle,
 } from "../ui/NavMenu.js";
 import ThemeSwitcher from "../ThemeSwitcher";
+import Image from "next/image.js";
+import { useGetAllCategories } from "@/services/api/catagoriesApi.js";
 
 const Header = () => {
   const [isITOpen, setITOpen] = useState(false);
   const [isBusinessOpen, setBusinessOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // State to toggle mobile menu
+  const { data: catagoriesData } = useGetAllCategories();
+
+  // console.log(catagoriesData);
 
   const toggleITMenu = () => {
     setITOpen(!isITOpen);
@@ -50,7 +55,22 @@ const Header = () => {
         href="/"
         className="text-3xl dark:text-white text-black cursor-pointer "
       >
-        LOGO
+        <Image
+          src="/assets/logo.png"
+          alt="learnSpace"
+          width={70}
+          height={70}
+          className="text-white dark:hidden"
+        />
+
+        {/* Dark theme logo */}
+        <Image
+          src="/assets/dark_logo.png"
+          alt="learnSpace"
+          width={70}
+          height={70}
+          className="text-white hidden dark:block"
+        />
       </Link>
 
       <div className="sm:hidden">
@@ -68,22 +88,30 @@ const Header = () => {
         <ThemeSwitcher />
         <Link href="/">Home</Link>
 
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <p className="cursor-pointer">Information Technology</p>
-              </NavigationMenuTrigger>
+        {catagoriesData?.map((catagory, index) => (
+          <NavigationMenu key={index}>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  <p className="cursor-pointer">{catagory.title}</p>
+                </NavigationMenuTrigger>
 
-              <NavigationMenuContent className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[200px] dark:bg-[#0a0a0a] dark:text-white text-black  ">
-                <div className="cursor-pointer">BCA</div>
-                <div className="cursor-pointer">MCA</div>
-                <div className="cursor-pointer">BIT</div>
-                <div className="cursor-pointer">BIM</div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+                <NavigationMenuContent className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[200px] dark:bg-[#0a0a0a] dark:text-white text-black  ">
+                  {catagory?.courses.map((course, index) => (
+                    <Link href={`/course/${course._id}`}>
+                      <div
+                        key={index}
+                        className="cursor-pointer hover:text-purple-700 "
+                      >
+                        {course.shortName}
+                      </div>
+                    </Link>
+                  ))}
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        ))}
 
         <Link href="/college">College</Link>
 
@@ -102,7 +130,15 @@ const Header = () => {
             className="text-2xl cursor-pointer dark:text-white text-gray-300"
             onClick={() => toggleMenu()}
           />
-          <p className="text-lg font-bold dark:text-white text-white">Logo</p>
+
+          {/* Dark theme logo */}
+          <Image
+            src="/assets/dark_logo.png"
+            alt="learnSpace"
+            width={70}
+            height={70}
+            className="text-white "
+          />
         </div>
 
         <div className="flex flex-col gap-5 mx-6">
@@ -116,66 +152,39 @@ const Header = () => {
           </Link>
 
           {/* Information Technology Dropdown */}
-          <div className="flex flex-col ">
-            <div
-              className="text-lgl text-gray-300 dark:text-white h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"
-              onClick={toggleITMenu}
-            >
-              <Laptop />
-              Information Technology
-              <span>{isITOpen ? <ChevronUp /> : <ChevronDown />}</span>{" "}
-              {/* Collapse/Expand Indicator */}
-            </div>
-
-            {isITOpen && (
+          {catagoriesData?.map((catagory, index) => (
+            <div key={index} className="flex flex-col ">
               <div
-                className="pl-4 pt-2 transition-all duration-300 ease-in-out"
-                onClick={() => setIsOpen(false)}
+                className="text-lgl text-gray-300 dark:text-white h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"
+                onClick={toggleITMenu}
               >
-                {Techcontent.map((course, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors"
-                    >
-                      {course}
-                    </div>
-                  );
-                })}
+                <Laptop />
+                {catagory?.title}
+                <span>{isITOpen ? <ChevronUp /> : <ChevronDown />}</span>{" "}
+                {/* Collapse/Expand Indicator */}
               </div>
-            )}
-          </div>
 
-          {/* Business */}
-          <div className="flex flex-col ">
-            <div
-              className="text-lgl text-gray-300 dark:text-white h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"
-              onClick={toggleBusinessMenu}
-            >
-              <Building2 />
-              Business
-              <span>
-                {isBusinessOpen ? <ChevronUp /> : <ChevronDown />}
-              </span>{" "}
-              {/* Collapse/Expand Indicator */}
+              {isITOpen && (
+                <div
+                  className="pl-4 pt-2 transition-all duration-300 ease-in-out"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {catagory?.courses?.map((course, index) => {
+                    return (
+                      <Link href={`/course/${course._id}`}>
+                        <div
+                          key={index}
+                          className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors"
+                        >
+                          {course.shortName}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-
-            {isBusinessOpen && (
-              <div
-                className="pl-4 pt-2 transition-all duration-300 ease-in-out"
-                onClick={() => setIsOpen(false)}
-              >
-                {businessContent.map((course, index) => (
-                  <div
-                    key={index}
-                    className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors"
-                  >
-                    {course}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          ))}
 
           <Link
             className="text-lg text-gray-300 dark:text-white  h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121]  hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"

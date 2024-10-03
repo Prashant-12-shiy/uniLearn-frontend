@@ -20,4 +20,6 @@ export const ENDPOINT = {
 
     ADD_PAST_QUESTION: "/api/addPastQuestion",
     GET_PAST_QUESTION: "/api/getPastQuestions",
+
+    GET_CATAGORIES: "/api/getAllCatagories",
 }

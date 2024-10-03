@@ -3,12 +3,14 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useGetSubjects } from "@/services/api/subjectApi";
 import Link from "next/link";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
   const params = useParams();
   const id = params.id;
 
-  const { data: subjectData } = useGetSubjects(id);
+  const { data: subjectData, isLoading } = useGetSubjects(id);
   // console.log(subjectData);
 
   // const breadcrumbItems = [
@@ -25,6 +27,7 @@ const Page = () => {
   //     label: subjectData?.subject?.name,
   //    }
   // ];
+ toast.warn("Please Refresh Few Times if Pdf is not Loading");
 
   return (
     <div className="mx-7">
@@ -52,6 +55,12 @@ const Page = () => {
             <p>Loading PDF...</p>
           )}
       </div>
+      <ToastContainer
+  className="max-md:text-sm w-full  max-md:w-[50vw]"
+  position="bottom-left"
+  autoClose={3000}
+  limit={1}
+/>
     </div>
   );
 };

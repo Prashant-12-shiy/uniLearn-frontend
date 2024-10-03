@@ -30,6 +30,7 @@ const ContactForm = () => {
             </form>
 
         </div>
+
     </div>
   )
 }

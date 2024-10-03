@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import { useGetSubjects } from "@/services/api/subjectApi";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Page = () => {
   const params = useParams();
@@ -13,6 +15,7 @@ const Page = () => {
   const notes = subjectData?.subject?.notes;
 
   // console.log(notes);
+  toast.warn("Please Refresh Few Times if Pdf is not Loading");
 
   return (
     <div className="mx-7 h-full dark:text-white text-black">
@@ -43,6 +46,12 @@ const Page = () => {
           )}
         </div>
       ))}
+      <ToastContainer
+        className="max-md:text-sm w-full  max-md:w-[50vw]"
+        position="bottom-left"
+        autoClose={3000}
+        limit={1}
+      />
     </div>
   );
 };

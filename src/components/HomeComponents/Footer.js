@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/Button";
+import Image from "next/image";
 
 const Footer = () => {
   const sections = [
@@ -18,7 +19,7 @@ const Footer = () => {
       title: "More",
       items: [
         { text: "GitHub", link: "https://github.com/", target: "_blank" },
-        { text: "Facebook", link: "https://facebook.com/", target: "_blank"},
+        { text: "Facebook", link: "https://facebook.com/", target: "_blank" },
         { text: "Team", link: "/team" },
         { text: "About Us", link: "#" },
       ],
@@ -34,18 +35,32 @@ const Footer = () => {
     },
     {
       title: "Legal",
-      items: [
-        { text: "Privacy Policy", link: "#"},
-      ],
+      items: [{ text: "Privacy Policy", link: "#" }],
     },
   ];
-  
+
   return (
     <div>
+      {/* <hr className="my-4 dark:bg-white bg-black border-black dark:border-white" /> */}
       <div className="flex items-start max-sm:grid max-sm:grid-cols-2  max-sm:gap-7 max-sm:ml-9 justify-evenly mt-10">
-        <h2 className="text-2xl font-semibold dark:text-white text-black cursor-pointer">
-          Logo
-        </h2>
+        <>
+          <Image
+            src="/assets/logo.png"
+            alt="learnSpace"
+            width={70}
+            height={70}
+            className="text-white dark:hidden"
+          />
+
+          {/* Dark theme logo */}
+          <Image
+            src="/assets/dark_logo.png"
+            alt="learnSpace"
+            width={70}
+            height={70}
+            className="text-white hidden dark:block"
+          />
+        </>
 
         {sections.map((section, index) => (
           <div key={index} className="">
@@ -56,7 +71,9 @@ const Footer = () => {
               {section.items.map((item, idx) => (
                 <li key={idx}>
                   {" "}
-                  <Link href={item.link} target={item?.target} scroll={true}>{item.text} </Link>{" "}
+                  <Link href={item.link} target={item?.target} scroll={true}>
+                    {item.text}{" "}
+                  </Link>{" "}
                 </li>
               ))}
             </ul>
@@ -64,7 +81,7 @@ const Footer = () => {
         ))}
       </div>
 
-      <hr className="my-4" />
+      <hr className="my-4 dark:bg-white bg-black border-black dark:border-white border-opacity-40" />
 
       <div className="w-[60vw] m-auto max-md:w-[90vw]">
         <h4 className="text-2xl dark:text-white text-black ">
