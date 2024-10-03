@@ -12,6 +12,7 @@ import {
   Laptop,
   School,
   Building2,
+  Telescope
 } from "lucide-react";
 import {
   NavigationMenu,
@@ -46,8 +47,6 @@ const Header = () => {
     }
   };
 
-
-
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -56,7 +55,7 @@ const Header = () => {
   const Techcontent = ["BCA", "BIT", "BIM", "MCA", "MIT"];
   const businessContent = ["BBS", "BBA", "BIM", "MBA", "MBS", "MIM"];
   return (
-    <div className="flex justify-around my-3 items-center">
+    <div className="flex justify-around mb-3 items-center">
       <Link
         href="/"
         className="text-3xl dark:text-white text-black cursor-pointer "
@@ -64,22 +63,22 @@ const Header = () => {
         <Image
           src="/assets/logo.png"
           alt="learnSpace"
-          width={70}
-          height={70}
-          className="text-white dark:hidden"
+          width={100}
+          height={100}
+          className="text-white dark:hidden max-md:w-20 max-md:h-20"
         />
 
         {/* Dark theme logo */}
         <Image
           src="/assets/dark_logo.png"
           alt="learnSpace"
-          width={70}
-          height={70}
-          className="text-white hidden dark:block"
+          width={100}
+          height={100}
+          className="text-white hidden dark:block max-md:w-20 max-md:h-20"
         />
       </Link>
 
-      <div className="sm:hidden">
+      <div className="sm:hidden flex items-center">
         <ThemeSwitcher />
       </div>
 
@@ -104,11 +103,8 @@ const Header = () => {
 
                 <NavigationMenuContent className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[200px] dark:bg-[#0a0a0a] dark:text-white text-black  ">
                   {catagory?.courses.map((course, index) => (
-                    <Link href={`/course/${course._id}`}     key={index}>
-                      <div
-                    
-                        className="cursor-pointer hover:text-purple-700 "
-                      >
+                    <Link href={`/course/${course._id}`} key={index}>
+                      <div className="cursor-pointer hover:text-purple-700 ">
                         {course.shortName}
                       </div>
                     </Link>
@@ -164,9 +160,22 @@ const Header = () => {
                 className="text-lgl text-gray-300 dark:text-white h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"
                 onClick={() => toggleCategory(index)}
               >
-                <Laptop />
+                {catagory?.title === "Information Technology" ? (
+                  <Laptop />
+                ) : catagory?.title === "Science" ? (
+                  <Telescope />
+                ) : (
+                  <Building2 />
+                )}
+
                 {catagory?.title}
-                <span>{openCategoryIndex === index ? <ChevronUp /> : <ChevronDown />}</span>
+                <span>
+                  {openCategoryIndex === index ? (
+                    <ChevronUp />
+                  ) : (
+                    <ChevronDown />
+                  )}
+                </span>
 
                 {/* Collapse/Expand Indicator */}
               </div>
@@ -178,11 +187,8 @@ const Header = () => {
                 >
                   {catagory?.courses?.map((course, index) => {
                     return (
-                      <Link href={`/course/${course._id}`}  key={index}>
-                        <div
-                         
-                          className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors"
-                        >
+                      <Link href={`/course/${course._id}`} key={index}>
+                        <div className=" text-gray-400 dark:text-gray-300 h-[40px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-200 transition-colors">
                           {course.shortName}
                         </div>
                       </Link>

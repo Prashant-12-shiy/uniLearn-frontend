@@ -22,4 +22,8 @@ export const ENDPOINT = {
     GET_PAST_QUESTION: "/api/getPastQuestions",
 
     GET_CATAGORIES: "/api/getAllCatagories",
+
+    SEND_MESSAGE: "/api/sendMessage",
+    GET_MESSAGE: "/api/getMessage",
+    DELETE_MESSAGE: "/api/deleteMessage/",
 }

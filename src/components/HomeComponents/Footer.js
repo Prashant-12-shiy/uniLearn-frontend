@@ -102,7 +102,7 @@ const Footer = () => {
         </Link>
       </div>
 
-      <p className="ml-16 text-[#888] text-sm my-8"> &copy; 2025 UniLearn</p>
+      <p className="ml-16 text-[#888] text-sm my-8"> &copy; 2025 learnSpace</p>
     </div>
   );
 };

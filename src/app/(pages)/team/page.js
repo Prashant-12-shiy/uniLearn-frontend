@@ -57,14 +57,14 @@ const Page = () => {
                 />
                 <Drawer>
                   <DrawerTrigger asChild>
-                    <div className=" absolute left-1/3 top-1/2">
+                    <div className=" absolute inset-0 flex items-center justify-center">
 
                     <Button className=" w-fit  translate-y-[500px] group-hover:translate-y-0 transition-all duration-300 hover:bg-lime-600 hover:scale-110 ">
                       Know More
                     </Button>
                     </div>
                   </DrawerTrigger>
-                  <DrawerContent className="h-[60vh] ">
+                  <DrawerContent className="h-[60vh] bg-black bg-opacity-45">
                     <div>
                       <DrawerHeader>
                         <DrawerTitle className="text-5xl max-md:text-2xl text-center">
@@ -75,7 +75,7 @@ const Page = () => {
                       <DrawerClose />
 
                       <div className="w-[80vw] m-auto max-sm:w-[90vw]">
-                        <p className="text-lg tracking-wider leading-8 max-md:text-base max-md:leading-6 max-sm:text-sm">
+                        <p className="text-lg tracking-wider leading-8 max-md:text-base  max-md:leading-6 max-sm:text-sm dark:text-white">
                           [CEO Name] is the visionary leader and driving force
                           behind [Company Name]. With over [X years] of
                           experience in the [industry or field], [he/she/they]

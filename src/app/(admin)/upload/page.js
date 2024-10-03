@@ -52,15 +52,19 @@ export default function ImageUploadForm() {
   // const handlePhotoInput = (file) => {
   //   setSelectedFile(file[0]);
   // };
-
   const handleFileInput = (file) => {
     const file2 = file[0];
-    if (file2 && file2.type === "application/pdf") {
-      setSelectedFile(file2);
-    } else {
-      console.error("Please select a valid PDF file.");
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"]; // Add more types if needed
+
+    if (file2) {
+        // Check if the file type is PDF or a valid image type
+        if (file2.type === "application/pdf" || validImageTypes.includes(file2.type)) {
+            setSelectedFile(file2);
+        } else {
+            console.error("Please select a valid PDF or image file.");
+        }
     }
-  };
+};
 
   // const handlePastQuestionInput = (file) => {
   //   const file2 = file[0];
@@ -101,19 +105,19 @@ export default function ImageUploadForm() {
       );
 
       const { secure_url } = res.data;
-      setImageUrl(secure_url);
-      reset(); // Reset the form
+
+      const updatedData = {
+        ...data,
+        logo: secure_url,
+      };
+      addUniversityMutation(updatedData);
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
       setLoading(false);
     }
 
-    const updatedData = {
-      ...data,
-      logo: imageUrl,
-    };
-    addUniversityMutation(updatedData);
+  
   };
 
   const submitNotes = async (data) => {

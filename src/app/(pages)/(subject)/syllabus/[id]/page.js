@@ -3,8 +3,10 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useGetSubjects } from "@/services/api/subjectApi";
 import Link from "next/link";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Download } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Button } from "@/components/ui/Button";
 
 const Page = () => {
   const params = useParams();
@@ -27,15 +29,31 @@ const Page = () => {
   //     label: subjectData?.subject?.name,
   //    }
   // ];
- toast.warn("Please Refresh Few Times if Pdf is not Loading");
+  toast.warn("Please Refresh Few Times if Pdf is not Loading", {
+    toastId: 1,
+  });
 
   return (
     <div className="mx-7">
       {/* <DynamicBreadcrumb items={breadcrumbItems}/> */}
-      <h1 className="text-3xl mb-7 dark:text-white text-black">{subjectData?.subject?.name}</h1>
+      <h1 className="text-3xl mb-7 dark:text-white text-black">
+        {subjectData?.subject?.name} Syllabus
+      </h1>
 
       <div>
-      {subjectData?.subject?.syllabus ? (
+        {subjectData?.subject?.syllabus ? (
+          <div>
+            <Button className="flex justify-center mb-4 ml-10 items-center">
+              <Download />
+              <a
+                className="text-end w-full"
+                href={subjectData?.subject?.syllabus}
+                download="filename.pdf"
+                target="_blank"
+              >
+                Download PDF
+              </a>
+            </Button>
             <iframe
               src={`https://docs.google.com/viewer?url=${subjectData?.subject?.syllabus}&embedded=true`}
               width="800px"
@@ -51,16 +69,17 @@ const Page = () => {
                 View PDF
               </Link>
             </iframe>
-          ) : (
-            <p>Loading PDF...</p>
-          )}
+          </div>
+        ) : (
+          <p>Loading PDF...</p>
+        )}
       </div>
       <ToastContainer
-  className="max-md:text-sm w-full  max-md:w-[50vw]"
-  position="bottom-left"
-  autoClose={3000}
-  limit={1}
-/>
+        className="max-md:text-sm w-full  max-md:w-[50vw]"
+        position="bottom-left"
+        autoClose={3000}
+        limit={1}
+      />
     </div>
   );
 };

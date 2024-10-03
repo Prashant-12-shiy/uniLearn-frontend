@@ -32,7 +32,7 @@ const ThemeSwitcher = () => {
 
   return (
     <button
-      className="p-2  text-black dark:text-white rounded"
+      className="px-2  text-black dark:text-white rounded"
       onClick={toggleTheme}
     >
       {theme === "dark" ? <Moon /> : <Sun />}
