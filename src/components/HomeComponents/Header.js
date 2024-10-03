@@ -27,20 +27,26 @@ import Image from "next/image.js";
 import { useGetAllCategories } from "@/services/api/catagoriesApi.js";
 
 const Header = () => {
-  const [isITOpen, setITOpen] = useState(false);
+  const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
+
+  // Toggle category open/close
+
   const [isBusinessOpen, setBusinessOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // State to toggle mobile menu
   const { data: catagoriesData } = useGetAllCategories();
 
   // console.log(catagoriesData);
 
-  const toggleITMenu = () => {
-    setITOpen(!isITOpen);
+  const toggleCategory = (index) => {
+    // If the same category is clicked, close it by setting to null; otherwise, open it
+    if (openCategoryIndex === index) {
+      setOpenCategoryIndex(null); // Close if the same category is clicked again
+    } else {
+      setOpenCategoryIndex(index); // Open the clicked category
+    }
   };
 
-  const toggleBusinessMenu = () => {
-    setBusinessOpen(!isBusinessOpen);
-  };
+
 
   // Toggle mobile menu
   const toggleMenu = () => {
@@ -156,15 +162,16 @@ const Header = () => {
             <div key={index} className="flex flex-col ">
               <div
                 className="text-lgl text-gray-300 dark:text-white h-[50px] place-content-center pl-3 rounded-lg hover:bg-[#212121] cursor-pointer hover:text-gray-100 transition-colors flex justify-start gap-5 items-center"
-                onClick={toggleITMenu}
+                onClick={() => toggleCategory(index)}
               >
                 <Laptop />
                 {catagory?.title}
-                <span>{isITOpen ? <ChevronUp /> : <ChevronDown />}</span>{" "}
+                <span>{openCategoryIndex === index ? <ChevronUp /> : <ChevronDown />}</span>
+
                 {/* Collapse/Expand Indicator */}
               </div>
 
-              {isITOpen && (
+              {openCategoryIndex === index && (
                 <div
                   className="pl-4 pt-2 transition-all duration-300 ease-in-out"
                   onClick={() => setIsOpen(false)}
