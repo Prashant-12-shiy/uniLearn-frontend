@@ -1,9 +1,11 @@
 import { ENDPOINT } from "../endPoints";
-import { useQuery,useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import axiosInstance from "../axiosInstance";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const { GET_SUBJECT, BASEURL,ADD_SUBJECT } = ENDPOINT;
+const { GET_SUBJECT, BASEURL, ADD_SUBJECT } = ENDPOINT;
 
 const addSubject = async (data) => {
   try {
@@ -11,21 +13,21 @@ const addSubject = async (data) => {
 
     return response.data.data;
   } catch (error) {
-    console.error("Error adding subject:", error.message);
-    // throw error
+    // toast.error(error.message);
+    throw error?.response?.data || error;
   }
-}
+};
 
 export const useAddSubject = () => {
   const mutation = useMutation({
     mutationFn: addSubject,
-    onSuccess: (data) => {
-      console.log("Added university:", data);
+    onSuccess: () => {
+      toast.success("Subject added successfully!");
     },
     onError: (error) => {
-      console.error("Error adding university:", error.message);
+      toast.error(error?.message);
     },
-  })
+  });
 
   return mutation;
 };
@@ -41,12 +43,12 @@ const getSubjects = async (id) => {
   }
 };
 
-export const useGetSubjects =  (id) => {
+export const useGetSubjects = (id) => {
   return useQuery({
     queryKey: ["getSubjects"],
     queryFn: () => getSubjects(id),
     onError: (error) => {
       console.error("Error fetching data:", error.message);
     },
-  })
+  });
 };

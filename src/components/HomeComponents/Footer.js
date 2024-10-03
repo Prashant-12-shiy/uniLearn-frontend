@@ -42,7 +42,7 @@ const Footer = () => {
   return (
     <div>
       {/* <hr className="my-4 dark:bg-white bg-black border-black dark:border-white" /> */}
-      <div className="flex items-start max-sm:grid max-sm:grid-cols-2  max-sm:gap-7 max-sm:pl-9 justify-evenly bg-slate-800 pb-4">
+      <div className="flex items-start max-sm:grid max-sm:grid-cols-2 mt-10 max-sm:gap-7 max-sm:pl-9 justify-evenly bg-slate-800 pb-4">
         <>
           <Image
             src="/assets/sky_logo.png"

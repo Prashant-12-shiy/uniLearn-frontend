@@ -11,7 +11,7 @@ const getCategories = async() => {
 
         return response.data.data;
     } catch (error) {
-        console.error(error.message);
+        throw error?.response?.data || error;
     }
 };
 

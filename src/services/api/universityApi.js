@@ -2,9 +2,10 @@ import axios from "axios";
 import { ENDPOINT } from "../endPoints";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosInstance from "../axiosInstance";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
-const {  GET_UNIVERSITY, GET_UNIVERSITY_BYID, ADD_UNIVERSITY } = ENDPOINT;
+const { GET_UNIVERSITY, GET_UNIVERSITY_BYID, ADD_UNIVERSITY } = ENDPOINT;
 // Ensure this is set in .env and properly retrieved
 // console.log(secretKey)
 
@@ -43,29 +44,32 @@ export const useGetUniversityById = (id) => {
   });
 };
 
-
 const addUniversity = async (data) => {
   try {
-    console.log('Data being sent:', data); // Log the data
+    console.log("Data being sent:", data); // Log the data
 
     const response = await axiosInstance.post(ADD_UNIVERSITY, data);
 
     return response.data.data;
   } catch (error) {
-    console.error("Error adding university:", error.response?.data || error.message);
-    throw error; // Optionally re-throw the error
+    console.error(
+      "Error adding university:",
+      error.response?.data || error.message
+    );
+    throw error?.response?.data || error; // Optionally re-throw the error
   }
-}
+};
 
 export const useAddUniversity = () => {
   const mutation = useMutation({
     mutationFn: addUniversity,
-    onSuccess: (data) => {
-      console.log("Added university:", data);
+
+    onSuccess: () => {
+      toast.success("University added successfully!");
     },
-    onError: (error) => {
-      console.error("Error adding university:", error.message);
+    onError: (response) => {
+      toast.error(response?.message);
     },
-  })
-  return mutation
-}
+  });
+  return mutation;
+};

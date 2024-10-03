@@ -27,7 +27,7 @@ const Layout = ({children}) => {
       ];
 
   return (
-    <div className='mx-6'>  
+    <div className='mx-6 mb-10'>  
       <DynamicBreadcrumb items={breadcrumbItems}/>
       {children}
       </div>

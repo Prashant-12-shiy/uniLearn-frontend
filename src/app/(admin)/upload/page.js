@@ -22,6 +22,8 @@ import { useAddCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
 import { useAddSubject } from "@/services/api/subjectApi";
 import FormDialog from "@/components/UploadComponents/Form";
+import { ToastContainer , toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ImageUploadForm() {
   const { register, handleSubmit, reset } = useForm();
@@ -106,17 +108,18 @@ export default function ImageUploadForm() {
 
       const { secure_url } = res.data;
 
-      const updatedData = {
-        ...data,
-        logo: secure_url,
-      };
-      addUniversityMutation(updatedData);
+      setImageUrl(secure_url); // Update the image URL
+      reset(); // Reset the form
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
       setLoading(false);
     }
-
+    const updatedData = {
+      ...data,
+      logo: imageUrl,
+    };
+    addUniversityMutation(updatedData);
   
   };
 
@@ -207,10 +210,11 @@ export default function ImageUploadForm() {
   };
 
   const handleSubjectSubmit = async(data) => {
-    if (!selectedFile) {
-      console.error("No file selected.");
-      return;
-    }
+    // if (!selectedFile) {
+    //   console.error("No file selected.");
+    //   return;
+    // }
+    data.semesterNumber = Number(data.semesterNumber);
 
     setLoading(true); // Start loading
 
@@ -253,14 +257,7 @@ export default function ImageUploadForm() {
     data.duration = Number(data.duration);
 
     try {
-      addCourseMutation(data, {
-        onSuccess: () => {
-          console.log("University added successfully!");
-        },
-        onError: (error) => {
-          console.error("Error adding University:", error);
-        },
-      });
+      addCourseMutation(data);
     } catch (error) {
       console.log("Error uploading course:", error);
     }
@@ -352,7 +349,9 @@ export default function ImageUploadForm() {
         fields={[
           { name: 'name', label: 'Name', type: 'text', required: true },
           { name: 'code', label: 'Subject Code', type: 'text', required: true },
-          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf', required: true }
+          { name: 'course', label: 'Course', type: 'text', required: true },
+          { name: 'semesterNumber', label: 'semesterNumber / Year ', type: 'number', required: true },
+          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf' }
         ]}
         handleFileInput={handleFileInput}
       />
@@ -408,6 +407,9 @@ export default function ImageUploadForm() {
           handleFileInput={handleFileInput}
         />
       </div>
+      <ToastContainer
+      position="top-center"
+      />
     </div>
   );
 }
