@@ -118,7 +118,7 @@ const Header = () => {
           </NavigationMenu>
         ))}
 
-        <Link href="/college">College</Link>
+        <Link href="/courses">Courses</Link>
 
         <Link href="/university">University</Link>
       </div>

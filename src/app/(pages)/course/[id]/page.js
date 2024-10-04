@@ -41,7 +41,7 @@ const Page = () => {
   };
 
   return (
-    <div className="mx-7 m-auto h-[100vh] py-10 pt-2">
+    <div className="mx-7 m-auto h-full py-10 pt-2">
       <DynamicBreadcrumb items={breadcrumbItems} />
       <h1 className="mt-5 text-4xl font-bold max-sm:text-2xl dark:text-white text-black">
         {courseData?.name}
@@ -73,9 +73,9 @@ const Page = () => {
             {semester?.subjects?.map((subject) => (
               <Dialog key={subject._id}>
                 <DialogTrigger asChild >
-                  <div className="flex gap-5 pl-2 items-center mb-2 dark:text-white text-black">
+                  <div className="flex gap-5 pl-2 items-center mb-2 dark:text-white text-black transition-colors duration-200 ease-in-out *:hover:text-[#4d70ca] hover:cursor-pointer">
                   <p>{subject?.code}</p>
-                  <p className="block max-sm:text-sm  hover:text-[#76c6e9] transition-colors duration-200 ease-in-out hover:cursor-pointer dark:text-white text-black">
+                  <p className="block max-sm:text-sm">
                     {subject.name}
                   </p>
                   </div>

@@ -102,6 +102,7 @@ export default function ImageUploadForm() {
       formData.append("signature", signature); // Signed signature from the backend
       formData.append("timestamp", timestamp); // Add timestamp for signature
       formData.append("api_key", api_key); // Add API key to the request
+  
 
       // Step 3: Upload the file to Cloudinary using the signed request
       const res = await axios.post(
@@ -110,19 +111,21 @@ export default function ImageUploadForm() {
       );
 
       const { secure_url } = res.data;
-
       setImageUrl(secure_url); // Update the image URL
+
+      const updatedData = {
+        ...data,
+        logo: imageUrl,
+      };
+      addUniversityMutation(updatedData);
+
       reset(); // Reset the form
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
       setLoading(false);
     }
-    const updatedData = {
-      ...data,
-      logo: imageUrl,
-    };
-    addUniversityMutation(updatedData);
+    
   
   };
 

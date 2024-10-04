@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
-const UnderConstruction = () => {
+const UnderConstruction = ({pageName}) => {
   return (
     <div>
       <div className="h-[80vh] flex justify-center gap-10 items-center mt-8 max-md:flex-col-reverse ">
@@ -12,7 +12,7 @@ const UnderConstruction = () => {
           <h2 className="text-7xl font-bold dark:text-white text-black ">
             Opps! <br />
             <span className="text-3xl dark:text-gray-300 text-black">
-              Under Construction
+              {pageName} is Under Construction
             </span>
           </h2>
           <p className="mt-4 text-[#888] ">

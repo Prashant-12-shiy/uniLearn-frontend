@@ -4,7 +4,7 @@ import UnderConstruction from '@/components/UnderConstruction'
 
 const Page = () => {
   return (
-    <UnderConstruction/>
+    <UnderConstruction pageName={"College"}/>
   )
 }
 
