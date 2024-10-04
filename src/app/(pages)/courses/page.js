@@ -49,7 +49,7 @@ const Page = () => {
   };
 
   return (
-    <div className="mx-10">
+    <div className="mx-10 max-md:mx-4">
       <h2 className="text-center text-4xl font-semibold mb-5 max-md:text-2xl max-sm:text-xl dark:text-white text-black">
         Categories
       </h2>
