@@ -19,6 +19,8 @@ export const ENDPOINT = {
 
 
     ADD_NOTES: "/api/addNote",
+    GET_NOTE: "/api/getNote/",
+
 
     ADD_PAST_QUESTION: "/api/addPastQuestion",
     GET_PAST_QUESTION: "/api/getPastQuestions",

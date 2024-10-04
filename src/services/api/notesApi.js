@@ -2,10 +2,10 @@ import axios from "axios";
 import { ENDPOINT } from "../endPoints";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosInstance from "../axiosInstance";
-const { ADD_NOTES } = ENDPOINT;
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const { ADD_NOTES, GET_NOTE } = ENDPOINT;
 const addNotes = async (data) => {
   try {
     const response = await axiosInstance.post(ADD_NOTES, data);
@@ -28,4 +28,24 @@ export const useAddNotes = () => {
   });
 
   return mutation;
+};
+
+const getNote = async (id) => {
+  try {
+    const response = await axiosInstance.get(GET_NOTE + id);
+
+    return response.data.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const useGetNote = (id) => {
+  return useQuery({
+    queryKey: ["getNote"],
+    queryFn: () => getNote(id),
+    onError: (error) => {
+      console.error(error.message);
+    },
+  });
 };
