@@ -13,14 +13,14 @@ const Page = () => {
 
   return (
     <div className="mx-10 max-md:mx-6 mt-10">
-      <h1>Notes</h1>
+      <h1 className="dark:text-white text-black">Notes</h1>
       <div className="grid grid-cols-5 gap-5 mt-5">
         {notes?.map((note) => (
           <Link href={`/note/${note._id}` }  key={note._id}>
         
-          <Button>
+          <p className="h-max px-5 max-h-20 py-2 border-black dark:text-black overflow-hidden bg-black dark:bg-white rounded-md ">
             <h3>{note.title}</h3>
-          </Button>
+          </p>
           </Link>
         ))}
       </div>
