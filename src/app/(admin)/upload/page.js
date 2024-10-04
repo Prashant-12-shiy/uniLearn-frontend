@@ -22,8 +22,9 @@ import { useAddCourse, useGetAllCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
 import { useAddSubject } from "@/services/api/subjectApi";
 import FormDialog from "@/components/UploadComponents/Form";
-import { ToastContainer , toast} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { handleSubmission } from "@/components/UploadComponents/HandleSubmit";
 
 export default function ImageUploadForm() {
   const { register, handleSubmit, reset } = useForm();
@@ -40,11 +41,11 @@ export default function ImageUploadForm() {
   const { mutate: addNoteMutation } = useAddNotes();
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
   const { mutate: addCourseMutation } = useAddCourse();
-  const {mutate: addSubjectMutation } = useAddSubject();
-  const {data: allCourseData } = useGetAllCourse();
+  const { mutate: addSubjectMutation } = useAddSubject();
+  const { data: allCourseData } = useGetAllCourse();
 
   console.log(allCourseData);
-  
+
   const isAdmin = cookies.get("admin");
   const router = useRouter();
 
@@ -59,17 +60,25 @@ export default function ImageUploadForm() {
   // };
   const handleFileInput = (file) => {
     const file2 = file[0];
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"]; // Add more types if needed
+    const validImageTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/jpg",
+    ]; // Add more types if needed
 
     if (file2) {
-        // Check if the file type is PDF or a valid image type
-        if (file2.type === "application/pdf" || validImageTypes.includes(file2.type)) {
-            setSelectedFile(file2);
-        } else {
-            console.error("Please select a valid PDF or image file.");
-        }
+      // Check if the file type is PDF or a valid image type
+      if (
+        file2.type === "application/pdf" ||
+        validImageTypes.includes(file2.type)
+      ) {
+        setSelectedFile(file2);
+      } else {
+        console.error("Please select a valid PDF or image file.");
+      }
     }
-};
+  };
 
   // const handlePastQuestionInput = (file) => {
   //   const file2 = file[0];
@@ -83,180 +92,57 @@ export default function ImageUploadForm() {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
+
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append("file", selectedFile); // Append the image file
-    formData.append("upload_preset", uploadPreset); // Append unsigned preset name
-
-    try {
-      setLoading(true);
-
-      const { signature, api_key, timestamp } = await fetchSignature(
-        uploadPreset
-      );
-
-      // Step 2: Create FormData for the Cloudinary upload
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("signature", signature); // Signed signature from the backend
-      formData.append("timestamp", timestamp); // Add timestamp for signature
-      formData.append("api_key", api_key); // Add API key to the request
-  
-
-      // Step 3: Upload the file to Cloudinary using the signed request
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        formData
-      );
-
-      const { secure_url } = res.data;
-      setImageUrl(secure_url); // Update the image URL
-
-      const updatedData = {
-        ...data,
-        logo: imageUrl,
-      };
-      addUniversityMutation(updatedData);
-
-      reset(); // Reset the form
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    } finally {
-      setLoading(false);
-    }
-    
-  
+    await handleSubmission(
+      data,
+      selectedFile,
+      uploadPreset,
+      cloudName,
+      addUniversityMutation,
+      "logo", // key for the uploaded file
+      "image" // resource type
+      
+    );
   };
-
   const submitNotes = async (data) => {
-    if (!selectedFile) {
-      console.error("No file selected.");
-      return;
-    }
-
-    setLoading(true); // Start loading
-
-    try {
-      const { signature, api_key, timestamp } = await fetchSignature(
-        uploadPreset
-      );
-
-      // Step 2: Create FormData for the Cloudinary upload
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("signature", signature); // Signed signature from the backend
-      formData.append("timestamp", timestamp); // Add timestamp for signature
-      formData.append("api_key", api_key); // Add API key to the request
-
-      // Step 3: Upload the file to Cloudinary using the signed request
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`, // Update to the correct resource type
-        formData
-      );
-
-      const { secure_url } = res.data;
-      // console.log("File uploaded successfully:", secure_url);
-
-      // Proceed with other logic, e.g., saving the note's URL in your database
-      const updatedData = {
-        ...data,
-        contentUrl: secure_url,
-      };
-      addNoteMutation(updatedData); /// Send the form data// Assuming this is your mutation for adding the note
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    } finally {
-      setLoading(false);
-    }
+    await handleSubmission(
+      data,
+      selectedFile,
+      uploadPreset,
+      cloudName,
+      addNoteMutation,
+      "contentUrl", // key for the uploaded file
+      "raw", // resource type for notes
+      "notes"
+    );
   };
 
   const submitPastQuestion = async (data) => {
-    if (!selectedFile) {
-      console.error("No file selected.");
-      return;
-    }
-
-    setLoading(true); // Start loading
-
-    try {
-      const { signature, api_key, timestamp } = await fetchSignature(
-        uploadPreset
-      );
-
-      // Step 2: Create FormData for the Cloudinary upload
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("signature", signature); // Signed signature from the backend
-      formData.append("timestamp", timestamp); // Add timestamp for signature
-      formData.append("api_key", api_key); // Add API key to the request
-
-      // Step 3: Upload the file to Cloudinary using the signed request
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`, // Update to the correct resource type
-        formData
-      );
-
-      const { secure_url } = res.data;
-      // console.log("File uploaded successfully:", secure_url);
-
-      // Proceed with other logic, e.g., saving the note's URL in your database
-      const updatedData = {
-        ...data,
-        contentUrl: secure_url,
-      };
-      addPastQuestionMutation(updatedData); /// Send the form data// Assuming this is your mutation for adding the note
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    } finally {
-      setLoading(false);
-    }
+    await handleSubmission(
+      data,
+      selectedFile,
+      uploadPreset,
+      cloudName,
+      addPastQuestionMutation,
+      "contentUrl", // key for the uploaded file
+      "raw", // resource type for past questions
+      "pastQuestion"
+    );
   };
-
-  const handleSubjectSubmit = async(data) => {
-    if (!selectedFile) {
-      console.error("No file selected.");
-      return;
-    }
+  const handleSubjectSubmit = async (data) => {
     data.semesterNumber = Number(data.semesterNumber);
 
-    setLoading(true); // Start loading
-
-    try {
-      const { signature, api_key, timestamp } = await fetchSignature(
-        uploadPreset
-      );
-
-      // Step 2: Create FormData for the Cloudinary upload
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("signature", signature); // Signed signature from the backend
-      formData.append("timestamp", timestamp); // Add timestamp for signature
-      formData.append("api_key", api_key); // Add API key to the request
-
-      // Step 3: Upload the file to Cloudinary using the signed request
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`, // Update to the correct resource type
-        formData
-      );
-
-      const { secure_url } = res.data;
-      // console.log("File uploaded successfully:", secure_url);
-
-      // Proceed with other logic, e.g., saving the note's URL in your database
-      const updatedData = {
-        ...data,
-        syllabus: secure_url,
-      };
-      addSubjectMutation(updatedData); /// Send the form data// Assuming this is your mutation for adding the note
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    } finally {
-      setLoading(false);
-    }
+    await handleSubmission(
+      data,
+      selectedFile,
+      uploadPreset,
+      cloudName,
+      addSubjectMutation,
+      "syllabus", // key for the uploaded file
+      "raw", // resource type for syllabus
+      "Syllabus"
+    );
   };
 
   const submitCourse = (data) => {
@@ -270,12 +156,11 @@ export default function ImageUploadForm() {
   };
 
   const courseOptions = allCourseData
-  ? allCourseData.map(course => ({
-      label: course.name, // Assuming `name` is the field you want to display
-      value: course.name,  // Assuming `_id` is the unique identifier
-    }))
-  : [];
-
+    ? allCourseData.map((course) => ({
+        label: course.name, // Assuming `name` is the field you want to display
+        value: course.name, // Assuming `_id` is the unique identifier
+      }))
+    : [];
 
   return (
     <div className="my-10 w-[70%] m-auto">
@@ -356,19 +241,40 @@ export default function ImageUploadForm() {
         />
 
         <FormDialog
-        triggerLabel="Add Subject"
-        title="Add Subject"
-        onSubmit={subjectSubmit(handleSubjectSubmit)}
-        register={subjectRegister}
-        fields={[
-          { name: 'name', label: 'Name', type: 'text', required: true },
-          { name: 'code', label: 'Subject Code', type: 'text', required: true },
-          { name: 'course', label: 'Course', type: 'select', options: courseOptions, required: true },
-          { name: 'semesterNumber', label: 'semesterNumber / Year ', type: 'number', required: true },
-          { name: 'file', label: 'File', type: 'file', accept: 'application/pdf' }
-        ]}
-        handleFileInput={handleFileInput}
-      />
+          triggerLabel="Add Subject"
+          title="Add Subject"
+          onSubmit={subjectSubmit(handleSubjectSubmit)}
+          register={subjectRegister}
+          fields={[
+            { name: "name", label: "Name", type: "text", required: true },
+            {
+              name: "code",
+              label: "Subject Code",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "course",
+              label: "Course",
+              type: "select",
+              options: courseOptions,
+              required: true,
+            },
+            {
+              name: "semesterNumber",
+              label: "semesterNumber / Year ",
+              type: "number",
+              required: true,
+            },
+            {
+              name: "file",
+              label: "File",
+              type: "file",
+              accept: "application/pdf",
+            },
+          ]}
+          handleFileInput={handleFileInput}
+        />
 
         <FormDialog
           triggerLabel="Add Notes"
@@ -421,9 +327,7 @@ export default function ImageUploadForm() {
           handleFileInput={handleFileInput}
         />
       </div>
-      <ToastContainer
-      position="top-center"
-      />
+      <ToastContainer position="top-center" />
     </div>
   );
 }

@@ -71,7 +71,7 @@ const Page = () => {
             </iframe>
           </div>
         ) : (
-          <p>Loading PDF...</p>
+          <p>Syllabus Not Found. Working on It</p>
         )}
       </div>
       <ToastContainer
