@@ -47,8 +47,14 @@ export const useGetSubjects = (id) => {
   return useQuery({
     queryKey: ["getSubjects"],
     queryFn: () => getSubjects(id),
+      staleTime: Infinity, // Keeps the data fresh indefinitely (no refetching on component mount)
+      cacheTime: Infinity, // Keeps the data in the cache even after unmounting
+      refetchOnMount: false, // Prevent refetching on component mount
+      refetchOnWindowFocus: false, // Prevent refetching when window gains focus
+      refetchOnReconnect: false, // Prevent refetching after reconnecting
     onError: (error) => {
       console.error("Error fetching data:", error.message);
     },
+    
   });
 };

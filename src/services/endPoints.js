@@ -30,4 +30,7 @@ export const ENDPOINT = {
     SEND_MESSAGE: "/api/sendMessage",
     GET_MESSAGE: "/api/getMessage",
     DELETE_MESSAGE: "/api/deleteMessage/",
+
+
+    GRADE_MCQ: "/api/grade-mcqs"
 }

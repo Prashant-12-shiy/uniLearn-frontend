@@ -33,6 +33,7 @@ export default function ImageUploadForm() {
   const { register: notesRegister, handleSubmit: notesSubmit } = useForm();
   const { register: pastQuestionRegister, handleSubmit: pastQuestionSubmit } =
     useForm();
+  const {register: mcqRegister, handleSubmit: mcqSubmit } = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [noteUrl, setNoteUrl] = useState(null);
