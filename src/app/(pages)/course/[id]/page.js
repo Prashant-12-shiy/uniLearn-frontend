@@ -104,6 +104,14 @@ const Page = () => {
                         Notes
                       </Button>
                       <Button
+                        className="bg-transparent border border-slate-400 text-white hover:bg-[#b9c05e] transition duration-200"
+                        onClick={() =>
+                          handleNavigation(subject._id, "mcq")
+                        }
+                      >
+                        Practice MCQs
+                      </Button>
+                      <Button
                         className="bg-transparent border border-slate-400 text-white hover:bg-[#9259a7] transition duration-200"
                         onClick={() =>
                           handleNavigation(subject._id, "past-question")
@@ -111,14 +119,7 @@ const Page = () => {
                       >
                         Past Questions
                       </Button>
-                      <Button
-                        className="bg-transparent border border-slate-400 text-white hover:bg-[#9259a7] transition duration-200"
-                        onClick={() =>
-                          handleNavigation(subject._id, "mcq")
-                        }
-                      >
-                        Practice MCQs
-                      </Button>
+                     
                       <Button
                         className="bg-transparent border border-slate-400 text-white hover:bg-[#a75959] transition duration-200"
                         onClick={() =>

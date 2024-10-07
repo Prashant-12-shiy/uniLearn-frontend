@@ -18,7 +18,6 @@ const Page = () => {
   const [results, setResults] = useState([]);
   const queryClient = useQueryClient();
 
-  console.log(results);
 
   function onSubmit(data) {
     try {
@@ -52,6 +51,10 @@ const Page = () => {
   function handleReset() {
     reset(); // Reset form input values
     setResults([]); // Clear feedback state
+    setScore();
+    queryClient.invalidateQueries({ queryKey: ["getSubjects"]})
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
 
@@ -74,7 +77,7 @@ const Page = () => {
                   const isSelected = result?.selectedAnswer === option;
                   const isCorrect = result?.correctAnswer === option;
                   return (
-                    <div key={i} className="flex items-center max-md:text-xs mb-1 text-black dark:text-white">
+                    <div key={i} className="flex items-center max-md:text-sm mb-1 text-black dark:text-white">
                       <input
                         type="radio"
                         {...register(question._id)} // Register the radio group
@@ -105,7 +108,7 @@ const Page = () => {
           })}
         </div>
 
-       {score && <p>Total Score: {score}</p>}  
+       {score && <p className="text-2xl">Total Score: <span className="text-red-700"> {score}</span> </p>}  
         <button
           type="submit"
           className="mt-4 p-2 mr-8 bg-blue-500 rounded text-black dark:text-white hover:scale-110 transition-all ease-in-out hover:-translate-y-1"
