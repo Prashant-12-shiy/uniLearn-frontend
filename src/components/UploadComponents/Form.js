@@ -24,8 +24,8 @@ const FormDialog = ({
       <DialogTrigger className="border p-2 rounded-lg">
         {triggerLabel}
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
+      <DialogContent className="max-h-[90vh] overflow-auto max-md:max-w-[80vw] max-md:rounded-md">
+        <DialogHeader >
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit}>

@@ -120,14 +120,14 @@ const Page = () => {
                         Past Questions
                       </Button>
                      
-                      <Button
+                      {/* <Button
                         className="bg-transparent border border-slate-400 text-white hover:bg-[#a75959] transition duration-200"
                         onClick={() =>
                           handleNavigation(subject._id, "projects")
                         }
                       >
                         Projects
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </DialogContent>

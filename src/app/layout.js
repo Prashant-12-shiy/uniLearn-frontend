@@ -4,6 +4,7 @@ import Header from "@/components/HomeComponents/Header.js";
 import { QueryProvider } from "@/context/QueryProvider";
 import AllContextProvider from "@/context/AllContextProvider";
 import Footer from "@/components/HomeComponents/Footer";
+import { ToastContainer } from "react-toastify";
 
 export const metadata = {
   title: "Learn Space",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
           <main className="min-h-screen"> {children} </main>
           <Footer />
         </body>
+          <ToastContainer/>
       </QueryProvider>
     </html>
     // </AllContextProvider>

@@ -12,7 +12,7 @@ import {
   Laptop,
   School,
   Building2,
-  Telescope
+  Telescope,
 } from "lucide-react";
 import {
   NavigationMenu,
@@ -26,15 +26,34 @@ import {
 import ThemeSwitcher from "../ThemeSwitcher";
 import Image from "next/image.js";
 import { useGetAllCategories } from "@/services/api/catagoriesApi.js";
+import cookies from "js-cookie";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/Dialog.js";
+import { Button } from "../ui/Button.js";
+import { useRouter } from "next/navigation.js";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
 
+  const router = useRouter();
   // Toggle category open/close
 
   const [isBusinessOpen, setBusinessOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // State to toggle mobile menu
   const { data: catagoriesData } = useGetAllCategories();
+  const role = cookies.get("admin");
+
+  const handleLogout = () => {
+    cookies.remove("admin");
+    router.push("/");
+    toast.success("Logout successfull");
+  };
 
   // console.log(catagoriesData);
 
@@ -77,7 +96,7 @@ const Header = () => {
           className="text-white hidden dark:block max-md:w-20 max-md:h-20"
         />
         <p className="text-xs -translate-x-5 pt-2 logo max-md:text-[8px]">
-          Learn <br/> Space
+          Learn <br /> Space
         </p>
       </Link>
 
@@ -121,6 +140,30 @@ const Header = () => {
         <Link href="/courses">Courses</Link>
 
         <Link href="/university">University</Link>
+
+        {role && (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Logout</Button>
+    </DialogTrigger>
+    <DialogContent className=" ">
+      <DialogTitle>Are you sure you want to logout?</DialogTitle>
+      
+      {/* Wrap both buttons inside a single container */}
+      <div className="flex justify-between mt-4">
+        <DialogClose asChild>
+          <Button onClick={() => handleLogout()}>Yes</Button>
+        </DialogClose>
+
+        <DialogClose asChild>
+          <Button>No</Button>
+        </DialogClose>
+      </div>
+    </DialogContent>
+  </Dialog>
+)}
+
+       
       </div>
 
       {/* Mobile Menu */}
@@ -230,6 +273,7 @@ const Header = () => {
           </Link>
         </div>
       </div>
+    
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ENDPOINT } from "../endPoints";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../axiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,7 +46,7 @@ export const useGetUniversityById = (id) => {
 
 const addUniversity = async (data) => {
   try {
-    console.log("Data being sent:", data); // Log the data
+    // console.log("Data being sent:", data);   
 
     const response = await axiosInstance.post(ADD_UNIVERSITY, data);
 
@@ -73,3 +73,65 @@ export const useAddUniversity = () => {
   });
   return mutation;
 };
+
+const deleteUniversity = async (id) => {
+  try {
+
+    const response = await axiosInstance.delete("/api/deleteUniversity/" + id);
+
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error deleting university:",
+      error.response?.data || error.message
+    );
+    throw error?.response?.data || error; // Optionally re-throw the error
+  }
+};
+
+export const useDeleteUniversity = () => {
+  const mutation = useMutation({
+    mutationFn: deleteUniversity,
+
+    onSuccess: () => {
+      toast.success("University deleted successfully!");
+    },
+    onError: (response) => {
+      toast.error(response?.message);
+    },
+  });
+  return mutation;
+};
+
+
+const updateUniversity = async ({id, data}) => {
+  try {
+
+    const response = await axiosInstance.patch("/api/updateUniversity/" + id, data);
+
+    return response.data.data;
+  } catch (error) {
+    console.error(
+      "Error deleting university:",
+      error.response?.data || error.message
+    );
+    throw error?.response?.data || error; // Optionally re-throw the error
+  }
+};
+
+export const useUpdateUniversity = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: updateUniversity,
+    onSuccess: () => {
+      toast.success("University updated successfully!");
+      queryClient.invalidateQueries({queryKey: ["getUniversity"]});
+    },
+    onError: (response) => {
+      toast.error(response?.message);
+    },
+  });
+  return mutation;
+};
+
+

@@ -5,6 +5,33 @@ import { toast } from "react-toastify";
 
 const { GRADE_MCQ } = ENDPOINT;
 
+const addMcq = async (data) => {
+  try {
+    const response = await axiosInstance.post("/api/addMcq", data);
+
+    return response.data
+  } catch (error) {
+    console.log(error?.message);
+    
+  }
+}
+
+export const useAddMcq = () => {
+  const mutation = useMutation({
+      mutationFn: addMcq,
+      onSuccess: (data) => {
+         toast.success("MCQ Added")
+          return data;
+      },
+      onError: (error) => {
+          alert("Error submitting your answer: " + error.message);
+      }
+  })
+  return mutation;
+}
+
+
+
 const GradeMcq = async (answers) => {
   try {
     const response = await axiosInstance.post(GRADE_MCQ, {answers});

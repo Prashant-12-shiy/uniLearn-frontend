@@ -21,6 +21,7 @@ import { fetchSignature } from "@/services/api/signatureApi";
 import { useAddCourse, useGetAllCourse } from "@/services/api/courseApi";
 import { useAddPastQuestion } from "@/services/api/pastQuestionApi";
 import { useAddSubject } from "@/services/api/subjectApi";
+import { useAddMcq } from "@/services/api/mcqApi";
 import FormDialog from "@/components/UploadComponents/Form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,7 +34,7 @@ export default function ImageUploadForm() {
   const { register: notesRegister, handleSubmit: notesSubmit } = useForm();
   const { register: pastQuestionRegister, handleSubmit: pastQuestionSubmit } =
     useForm();
-  const {register: mcqRegister, handleSubmit: mcqSubmit } = useForm();
+  const { register: mcqRegister, handleSubmit: mcqSubmit } = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [noteUrl, setNoteUrl] = useState(null);
@@ -43,18 +44,13 @@ export default function ImageUploadForm() {
   const { mutate: addPastQuestionMutation } = useAddPastQuestion();
   const { mutate: addCourseMutation } = useAddCourse();
   const { mutate: addSubjectMutation } = useAddSubject();
+  const {mutate: addMcqMutation} = useAddMcq()
   const { data: allCourseData } = useGetAllCourse();
 
-  console.log(allCourseData);
+  // console.log(allCourseData);
 
   const isAdmin = cookies.get("admin");
   const router = useRouter();
-
-  useEffect(() => {
-    if (isAdmin !== "123") {
-      router.push("/"); // Redirect to not authorized page
-    }
-  }, [isAdmin, router]);
 
   // const handlePhotoInput = (file) => {
   //   setSelectedFile(file[0]);
@@ -93,7 +89,6 @@ export default function ImageUploadForm() {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
-
   const onSubmit = async (data) => {
     await handleSubmission(
       data,
@@ -103,7 +98,6 @@ export default function ImageUploadForm() {
       addUniversityMutation,
       "logo", // key for the uploaded file
       "image" // resource type
-      
     );
   };
   const submitNotes = async (data) => {
@@ -156,6 +150,10 @@ export default function ImageUploadForm() {
     }
   };
 
+  const submitMcqQuestion = (data) => {
+    addMcqMutation(data);
+  }
+
   const courseOptions = allCourseData
     ? allCourseData.map((course) => ({
         label: course.name, // Assuming `name` is the field you want to display
@@ -165,10 +163,10 @@ export default function ImageUploadForm() {
 
   return (
     <div className="my-10 w-[70%] m-auto">
-      <h1 className="text-center font-semibold text-3xl my-9">Admin Page</h1>
-      <h1>University Upload Form</h1>
+      <h1 className="text-center font-semibold text-3xl my-9 text-black dark:text-white">Admin Page</h1>
+      <h1 className="text-black dark:text-white">University Upload Form</h1>
 
-      <div className="flex flex-col gap-7 w-36">
+      <div className="flex flex-col gap-7 w-36 text-black dark:text-white">
         <FormDialog
           triggerLabel="Add University"
           title="Add University"
@@ -298,6 +296,12 @@ export default function ImageUploadForm() {
               required: true,
               fullWidth: true,
             },
+            {
+              name: "subject",
+              label: "Subject",
+              type: "text",
+              required: true,
+            },
           ]}
           handleFileInput={handleFileInput}
         />
@@ -323,6 +327,47 @@ export default function ImageUploadForm() {
               type: "textarea",
               required: true,
               fullWidth: true,
+            },
+            {
+              name: "subject",
+              lable: "subject",
+              type: "text",
+              required: true,
+            },
+          ]}
+          handleFileInput={handleFileInput}
+        />
+
+        <FormDialog
+          triggerLabel="Add Multiple Choice Questions"
+          title="Add Multiple Choice Questions"
+          onSubmit={mcqSubmit(submitMcqQuestion)}
+          register={mcqRegister}
+          fields={[
+            {
+              name: "subjectCode",
+              label: "Subject Code",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "question",
+              label: "Question",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "options",
+              label: "Options",
+              type: "textarea",
+              required: true,
+              fullWidth: true,
+            },
+            {
+              name: "correctAnswer",
+              label: "Correct Answer",
+              type: "text",
+              required: true,
             },
           ]}
           handleFileInput={handleFileInput}

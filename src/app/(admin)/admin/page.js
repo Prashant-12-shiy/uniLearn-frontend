@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/Table";
 import { Trash } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 
 const Page = () => {
   const isAdmin = cookies.get("admin");
@@ -21,14 +22,10 @@ const Page = () => {
   const { data: MessageData } = useGetMessage();
   const { mutate: deleteMessageMutation } = useDeleteMessage();
   const queryClient = useQueryClient();
-  console.log(MessageData);
+  // console.log(MessageData);
   
 
-  useEffect(() => {
-    if (isAdmin !== "123") {
-      router.push("/"); // Redirect to not authorized page
-    }
-  }, [isAdmin, router]);
+
 
   const handleDeleteMessage = (id) => {
     try {
@@ -69,13 +66,14 @@ const Page = () => {
   return (
     <div className="mx-10">
       <section className="w-full">
-        <h2 className="text-3xl">Message Section</h2>
+        <h2 className="text-3xl text-black dark:text-white">Message Section</h2>
         <Table>
           <TableHeader>
             <TableRow className="w-full">
               <TableHead className="w-[15vw]">Name</TableHead>
               <TableHead className="w-[15vw]">Email</TableHead>
               <TableHead className="w-[60vw] text-center">Message</TableHead>
+              <TableHead className="w-[60vw] text-center">Date/Time</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
@@ -83,17 +81,20 @@ const Page = () => {
             {currentMessages?.map((message) => {
               return (
                 <TableRow key={message._id}>
-                  <TableCell className="w-[15vw]">{message.name}</TableCell>
-                  <TableCell className="w-[15vw]">{message.email}</TableCell>
-                  <TableCell className="w=[60vw] text-center">
+                  <TableCell className="w-[15vw] text-black dark:text-white">{message.name}</TableCell>
+                  <TableCell className="w-[15vw] text-black dark:text-white">{message.email}</TableCell>
+                  <TableCell className="w=[60vw]  text-black dark:text-white text-center">
                     {" "}
                     {message.message}
+                  </TableCell>
+                  <TableCell className="w=[60vw]  text-black dark:text-white text-center">
+                  {format(new Date(message.createdAt), "MM/dd -- hh:mm:ss a")}
                   </TableCell>
                   <TableCell className="text-center">
                     {" "}
                     <Trash
                       onClick={() => handleDeleteMessage(message._id)}
-                      className="w-4 h-4 cursor-pointer hover:text-red-500"
+                      className="w-4 h-4 cursor-pointer text-black dark:text-white hover:text-red-500"
                     />
                   </TableCell>
                 </TableRow>
@@ -102,7 +103,7 @@ const Page = () => {
           </TableBody>
         </Table>
 
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-between items-center mt-4 text-black dark:text-white">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}

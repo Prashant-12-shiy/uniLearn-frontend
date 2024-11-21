@@ -31,12 +31,12 @@ export default function Home() {
       bg: "#C2F9A6",
       link: "/courses",
     },
-    {
-      button: "Explore Colleges",
-      image: "/assets/college.png",
-      bg: "#A590F2",
-      link: "/college",
-    },
+    // {
+    //   button: "Explore Colleges",
+    //   image: "/assets/college.png",
+    //   bg: "#A590F2",
+    //   link: "/college",
+    // },
   ];
 
   const cardVariants = {

@@ -16,7 +16,7 @@ const Page = () => {
       <h1 className="dark:text-white text-black">Notes</h1>
       <div className="grid grid-cols-5 gap-5 max-md:grid-cols-3 max-sm:grid-cols-2 max-md:gap-3 mt-5">
         {notes?.length === 0 ? (
-          <div className="w-[100vh]">No Notes Available. Working on It </div>
+          <div className="w-[100vh] text-black dark:text-white">No Notes Available. Working on It </div>
         ) : (
           <>
             {notes?.map((note) => (

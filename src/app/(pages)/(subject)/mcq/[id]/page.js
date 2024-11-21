@@ -60,7 +60,7 @@ const Page = () => {
 
   return (
     <div className="mx-10 mt-8 max-md:mx-2">
-      <h1 className="text-center mb-5 text-5xl dark:text-white text-black font-semibold max-md:text-2xl">
+      {mcqQuestions?.length !== 0 ? <><h1 className="text-center mb-5 text-5xl dark:text-white text-black font-semibold max-md:text-2xl">
         Choose The Answers
       </h1>
 
@@ -108,7 +108,7 @@ const Page = () => {
           })}
         </div>
 
-       {score && <p className="text-2xl">Total Score: <span className="text-red-700"> {score}</span> </p>}  
+       {score && <p className="text-2xl">Total Score: <span className="text-red-700"> {score}</span> </p>}   <br/> <br/>
         <button
           type="submit"
           className="mt-4 p-2 mr-8 bg-blue-500 rounded text-black dark:text-white hover:scale-110 transition-all ease-in-out hover:-translate-y-1"
@@ -124,7 +124,8 @@ const Page = () => {
           >
             Reset
           </button>
-      </form>
+      </form></> : <p className="text-black dark:text-white">No MCQ</p>}
+      
 
       {/* <div className="mt-4">
         {results.map((result, index) => (

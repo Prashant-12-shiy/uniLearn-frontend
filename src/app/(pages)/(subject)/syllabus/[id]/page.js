@@ -71,7 +71,7 @@ const Page = () => {
             </iframe>
           </div>
         ) : (
-          <p>Syllabus Not Found. Working on It</p>
+          <p className="text-black dark:text-white">Syllabus Not Found. Working on It</p>
         )}
       </div>
       <ToastContainer

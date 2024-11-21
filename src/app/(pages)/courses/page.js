@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import UnderConstruction from "@/components/UnderConstruction"; // Keep if needed, otherwise remove
+import { useGetAllCategories } from "@/services/api/catagoriesApi";
+import { useCategory } from "@/context/Cateogries";
 import {
   Cpu,
   Briefcase,
@@ -20,6 +22,11 @@ import {
 import Link from "next/link";
 
 const Page = () => {
+  const { setSelectedCategory } = useCategory();
+  const {data: CategoriesData} = useGetAllCategories();
+  
+  // console.log(CategoriesData);
+  
   const courseCategories = [
     { name: "Information Technology", icon: <Cpu />, bgColor: "bg-[#66B2FF]" }, // Light Blue
     { name: "Business", icon: <Briefcase />, bgColor: "bg-[#8FD6A5]" }, // Light Green
@@ -48,6 +55,21 @@ const Page = () => {
     return encodeURIComponent(formattedString);
   };
 
+  const enrichedCategories = CategoriesData?.map((category) => {
+    const matchingPredefinedCategory = courseCategories.find(
+      (preCategory) => preCategory.name === category.title
+    );
+  
+    return {
+      ...matchingPredefinedCategory,
+      ...category,
+      _id: category._id, // Ensure `_id` is added
+    };
+  }) || [];
+
+  // console.log(enrichedCategories);
+  
+
   return (
     <div className="mx-10 max-md:mx-4">
       <h2 className="text-center text-4xl font-semibold mb-5 max-md:text-2xl max-sm:text-xl dark:text-white text-black">
@@ -55,30 +77,29 @@ const Page = () => {
       </h2>
 
       <div className="grid grid-cols-4 gap-5 max-md:grid-cols-3 max-sm:grid-cols-2">
-        {courseCategories.map((course, index) => {
-          return (
-            <Link
-              href={`/courses/${formatCourseName(course.name)}`}
-              key={index}
-            >
-              <div className="flex flex-col h-[200px] max-md:h-[150px] rounded-lg cursor-pointer hover:scale-105 transition-all mt-3 duration-300 ease-in-out relative group overflow-hidden">
-                <div
-                  className={`h-[150px] max-md:h-[115px] flex justify-center items-center rounded-t-lg ${course.bgColor} group-hover:bg-opacity-70  `}
-                >
-                  <p className="*:text-black *:w-14 *:h-14 "> {course.icon} </p>
-                </div>
-                <div className="justify-center text-lg font-semibold max-md:text-base max-sm:text-xs text-black flex items-center bg-gray-300 rounded-b-lg h-[50px]">
-                  {course.name}
-                </div>
-                <div className=" absolute inset-1 mb-4 flex items-center justify-center">
-                  <p className=" w-fit font-semibold  -translate-x-[500px] group-hover:translate-x-0 transition-all duration-300 text-xl ">
-                    0 Course
-                  </p>
-                </div>
+        {enrichedCategories.map((category, index) => (
+          <Link
+            href={`/courses/${category._id}`}
+            key={index}
+            onClick={() => setSelectedCategory(category)}
+          >
+            <div className="flex flex-col h-[200px] max-md:h-[150px] rounded-lg cursor-pointer hover:scale-105 transition-all mt-3 duration-300 ease-in-out relative group overflow-hidden">
+              <div
+                className={`h-[150px] max-md:h-[115px] flex justify-center items-center rounded-t-lg ${category.bgColor} group-hover:bg-opacity-70`}
+              >
+                <p className="*:text-black *:w-14 *:h-14">{category.icon}</p>
               </div>
-            </Link>
-          );
-        })}
+              <div className="justify-center text-lg font-semibold max-md:text-base max-sm:text-xs text-black flex items-center bg-gray-300 rounded-b-lg h-[50px]">
+                {category.name}
+              </div>
+              <div className="absolute inset-1 mb-4 flex items-center justify-center">
+                <p className="w-fit font-semibold -translate-x-[500px] group-hover:translate-x-0 transition-all duration-300 text-xl">
+                  {category.courses.length} Course
+                </p>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
