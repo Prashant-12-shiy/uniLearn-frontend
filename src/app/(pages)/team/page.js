@@ -16,25 +16,25 @@ import {
 const Page = () => {
   const teams = [
     {
-      name: "John Doe",
-      position: "CEO / Developer",
+      name: "Rusha Rai",
+      position: "Frontend & UI/UX Design",
       image: "/assets/dummy-person.jpg",
     },
     {
-      name: "John Doe",
-      position: "Designer",
+      name: "Sumitra Gimire",
+      position: "Backend & Research ",
       image: "/assets/dummy-person.jpg",
     },
-    {
-      name: "John Doe",
-      position: "R&D",
-      image: "/assets/dummy-person.jpg",
-    },
-    {
-      name: "John Doe",
-      position: "Project Manager",
-      image: "/assets/dummy-person.jpg",
-    },
+    // {
+    //   name: "John Doe",
+    //   position: "R&D",
+    //   image: "/assets/dummy-person.jpg",
+    // },
+    // {
+    //   name: "John Doe",
+    //   position: "Project Manager",
+    //   image: "/assets/dummy-person.jpg",
+    // },
   ];
   //   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
   return (
@@ -52,8 +52,8 @@ const Page = () => {
                   src={team.image}
                   alt="person"
                   className="object-contain rounded-lg group-hover:opacity-50"
-                  width={300}
-                  height={300}
+                  width={700}
+                  height={700}
                 />
                 <Drawer>
                   <DrawerTrigger asChild>

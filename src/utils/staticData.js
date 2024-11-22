@@ -10,11 +10,11 @@ const features = [
       description:
         "Browse institutions worldwide, learn about their rankings, campus life, scholarships, and admission requirements to find the best fit for you.",
     },
-    {
-      title: "Personalized Recommendations",
-      description:
-        "Unsure of where to start? Our intelligent recommendation tool suggests courses and universities based on your interests and goals.",
-    },
+    // {
+    //   title: "Personalized Recommendations",
+    //   description:
+    //     "Unsure of where to start? Our intelligent recommendation tool suggests courses and universities based on your interests and goals.",
+    // },
     {
       title: "Educational Roadmaps",
       description:

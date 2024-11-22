@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from '@/components/ui/Button'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 
 const Page = () => {
   return (
@@ -23,12 +24,24 @@ const Page = () => {
           Help us grow and keep this resource available to all. Thank you for your support!
         </p>
 
-        <Link href="#">
-          {" "}
-          <Button className="mt-6 font-semibold bg-[#30ac38] hover:bg-[#42d553] hover:scale-110 transition-all duration-200 ease-in-out">
+       <Dialog>
+        <DialogTrigger>
+        <Button className="mt-6 font-semibold bg-[#30ac38] hover:bg-[#42d553] hover:scale-110 transition-all duration-200 ease-in-out">
             Donate Now
           </Button>{" "}
-        </Link>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogTitle>Payment Information</DialogTitle>
+          <DialogDescription></DialogDescription>
+          <p> Esewa: 9874502136</p>
+          <div>
+          <p>Scanner</p>
+          <Image src="/assets/scan.jpg" alt='scanner' width={300} height={300}/>
+          </div>
+        </DialogContent>
+       </Dialog>
+        
+        
       </div>
       <div>
         <Image

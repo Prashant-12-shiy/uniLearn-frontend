@@ -6,15 +6,15 @@ import Image from "next/image";
 
 const Footer = () => {
   const sections = [
-    {
-      title: "Resources",
-      items: [
-        { text: "Docs", link: "#" },
-        { text: "Learn", link: "#" },
-        { text: "Blog", link: "#" },
-        { text: "Review", link: "#" },
-      ],
-    },
+    // {
+    //   title: "Resources",
+    //   items: [
+    //     { text: "Docs", link: "#" },
+    //     { text: "Learn", link: "#" },
+    //     { text: "Blog", link: "#" },
+    //     { text: "Review", link: "#" },
+    //   ],
+    // },
     {
       title: "More",
       items: [
